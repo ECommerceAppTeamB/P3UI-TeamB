@@ -16,7 +16,14 @@
         </div>
         <input type="number" class="form-control" aria-label="Sizing example input" [value]="productInfo.quantity" aria-describedby="inputGroup-sizing-sm" disabled>
       </div>
-    <div class="card-body">
+    <!-- <div class="card-body">
         <button class="btn btn-outline-success" (click)="addToCart(productInfo)">Add to Cart</button>
+        <input type="number" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
+    </div> -->
+    <div class="input-group input-group-sm mb-3">
+      <div class="input-group-prepend">
+        <button class="btn btn-outline-success" (click)="addToCart(productInfo)">Add to Cart</button>
+      </div>
+      <input type="number" class="form-control" [(ngModel)]="quantity" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
     </div>
   </div>
