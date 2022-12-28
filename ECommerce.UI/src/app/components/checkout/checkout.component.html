@@ -1,62 +1,83 @@
 <app-navbar></app-navbar>
 
 <div class="container mt-5 px-5">
-    <form id="register-form" [formGroup]="checkoutForm" #registerFormElement="ngForm">
-
+    <form id="register-form" [formGroup]="checkoutForm" #checkoutFormElement="ngForm">
+        <!-- (ngSubmit)="onSubmit() -->
         <div class="mb-3">
             <h2>Confirm Your Order</h2>
             <span>Enter details below to confirm your order:</span>
         </div>
-
         <div class="row">
             <div class="col-md-8">
                 <div class="card p-3">
 
                     <h6 class="text-uppercase">Payment details</h6>
-                    <div class="inputbox mt-3"> <input type="text" name="name" class="form-control" formControlName="cardName" required="required">
+                    <div class="inputbox mt-3"> <input type="text" name="name" class="form-control" id="checkout-ctrl" formControlName="cardName"
+                            required="required">
                         <span>Name on card</span>
                     </div>
 
                     <div class="row">
 
                         <div class="col-md-6">
-                            <div class="inputbox mt-3 mr-2"> <input type="number" name="name" class="form-control" formControlName="cardNum"
-                                    required="required"> <i class="fa fa-credit-card"></i> <span>Card Number</span>
+                            <div class="inputbox mt-3 mr-2">
+                                <input type="number" name="name" class="form-control" id="checkout-ctrl" formControlName="cardNum" required="required"
+                                    [ngClass]="{ 'invalid': checkoutForm.get('cardNum')?.invalid && (checkoutForm.get('cardNum')?.touched) }">
+                                <i class="fa fa-credit-card"></i> <span>Card Number</span>
+                            </div>
+                            <div class="align-end" *ngIf="checkoutForm.get('cardNum')?.hasError('minLength') && checkoutForm.get('cardNum')?.touched">
+                                <span class="error">
+                                    <small id="cardNumHelp" class="form-text text-danger">Invalid Card Number</small>
+                                </span>
                             </div>
                         </div>
 
                         <div class="col-md-6">
                             <div class="d-flex flex-row">
-                                <div class="inputbox mt-3 mr-2"> <input type="text" name="name" class="form-control" formControlName="expDate"
-                                        required="required" maxlength="5">
-                                    <span>Expiry</span>
+                                <div class="inputbox mt-3 mr-2">
+                                    <input type="text" name="name" class="form-control" id="checkout-ctrl" formControlName="expDate"
+                                        required="required" maxlength="5"
+                                        [ngClass]="{ 'invalid': checkoutForm.get('expDate')?.invalid && (checkoutForm.get('expDate')?.touched) }">
+                                    <span>Expiration</span>
                                 </div>
 
-                                <div class="inputbox mt-3 mr-2"> <input type="input" name="name" class="form-control" formControlName="cvv"
-                                        required="required" maxlength="3">
+                                <div class="inputbox mt-3 mr-2">
+                                    <input type="input" name="name" class="form-control" id="checkout-ctrl" formControlName="cvv" required="required"
+                                        maxlength="3"
+                                        [ngClass]="{ 'invalid': checkoutForm.get('cvv')?.invalid && (checkoutForm.get('cvv')?.touched) }">
                                     <span>CVV</span>
                                 </div>
+                            </div>
+
+                            <div class="d-flex flex-row justify-content-between align-items-baseline">
+                                <span class="error"
+                                    *ngIf="checkoutForm.get('expDate')?.hasError('invalidFormat') && checkoutForm.get('expDate')?.touched">
+                                    <small id="expDateHelp" class="form-text text-danger">Invalid Exp. Date</small>
+                                </span>
+                                <span class="error" *ngIf="checkoutForm.get('cvv')?.hasError('minLength') && checkoutForm.get('cvv')?.touched">
+                                    <small id="cvvHelp" class="form-text text-danger">Invalid CVV</small>
+                                </span>
                             </div>
                         </div>
 
                         <!-- Validation Messages -->
-                        <div>
-                            <div *ngIf="checkoutForm.get('cardNum')?.hasError('minLength') && checkoutForm.get('cardNum')?.touched">
+                        <!-- <div> -->
+                        <!-- <div *ngIf="checkoutForm.get('cardNum')?.hasError('minLength') && checkoutForm.get('cardNum')?.touched">
                                 <span class="error">
-                                    <small id="cardNumHelp" class="form-text text-danger">Invalid card number</small>
+                                    <small id="cardNumHelp" class="form-text text-danger">Invalid Card Number</small>
                                 </span>
-                            </div>
-                            <div *ngIf="checkoutForm.get('expDate')?.hasError('invalidFormat') && checkoutForm.get('expDate')?.touched">
+                            </div> -->
+                        <!-- <div *ngIf="checkoutForm.get('expDate')?.hasError('invalidFormat') && checkoutForm.get('expDate')?.touched">
                                 <span class="error">
-                                    <small id="expDateHelp" class="form-text text-danger">Invalid exp. date</small>
+                                    <small id="expDateHelp" class="form-text text-danger">Invalid Exp. Date</small>
                                 </span>
-                            </div>
-                            <div *ngIf="checkoutForm.get('cvv')?.hasError('minLength') && checkoutForm.get('cvv')?.touched">
+                            </div> -->
+                        <!-- <div *ngIf="checkoutForm.get('cvv')?.hasError('minLength') && checkoutForm.get('cvv')?.touched">
                                 <span class="error">
-                                    <small id="cvvHelp" class="form-text text-danger">CVV is not valid</small>
+                                    <small id="cvvHelp" class="form-text text-danger">Invalid CVV</small>
                                 </span>
-                            </div>
-                        </div>
+                            </div> -->
+                        <!-- </div>  -->
                         <!-- End Validation Messages -->
 
                         <div class="mt-4 mb-4">
@@ -66,7 +87,8 @@
 
                                 <div class="col-md-6">
 
-                                    <div class="inputbox mt-3 mr-2"> <input type="text" name="name" class="form-control" required="required">
+                                    <div class="inputbox mt-3 mr-2"> <input type="text" name="name" class="form-control" id="checkout-ctrl"
+                                            required="required">
                                         <span>Street Address</span>
                                     </div>
 
@@ -75,7 +97,8 @@
 
                                 <div class="col-md-6">
 
-                                    <div class="inputbox mt-3 mr-2"> <input type="text" name="name" class="form-control" required="required">
+                                    <div class="inputbox mt-3 mr-2"> <input type="text" name="name" class="form-control" id="checkout-ctrl"
+                                            required="required">
                                         <span>City</span>
                                     </div>
 
@@ -85,20 +108,23 @@
                             <div class="row mt-2">
 
                                 <div class="col-md-6">
-                                    <div class="inputbox mt-3 mr-2"> <input type="text" name="name" class="form-control" required="required">
-                                        <span>State/Province</span>
+                                    <div class="inputbox mt-3 mr-2"> <input type="text" name="name" class="form-control" id="checkout-ctrl"
+                                            required="required">
+                                        <span>State</span>
                                     </div>
                                 </div>
 
                                 <div class="col-md-6">
-                                    <div class="inputbox mt-3 mr-2"> <input type="text" name="name" class="form-control" formControlName="zipCode"
-                                            required="required">
+                                    <div class="inputbox mt-3 mr-2">
+                                        <input type="text" name="name" class="form-control" id="checkout-ctrl" formControlName="zipCode"
+                                            required="required"
+                                            [ngClass]="{ 'invalid': checkoutForm.get('zipCode')?.invalid && (checkoutForm.get('zipCode')?.touched) }">
                                         <span>Zip code</span>
                                     </div>
 
                                     <div *ngIf="checkoutForm.get('zipCode')?.hasError('minLength') && checkoutForm.get('zipCode')?.touched">
                                         <span class="error">
-                                            <small id="zipCodeHelp" class="form-text text-danger">Invalid Zip</small>
+                                            <small id="zipCodeHelp" class="form-text text-danger">Invalid Zip Code</small>
                                         </span>
                                     </div>
                                 </div>
@@ -125,8 +151,7 @@
                         <h1 class="mb-0 yellow">${{totalPrice}}</h1>
                     </div>
 
-                    <!--! Typo in class -->
-                    <div class="hightlight">
+                    <div class="highlight">
                         <span>100% Guaranteed Satisfaction!</span>
                     </div>
                 </div>

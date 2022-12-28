@@ -13,10 +13,7 @@ import { CheckoutService } from 'src/app/services/checkout.service';
 export class CheckoutComponent implements OnInit {
   checkoutForm: FormGroup = this.fb.group({});
 
-  products: {
-    product: Product,
-    quantity: number;
-  }[] = [];
+  products: { product: Product, quantity: number; }[] = [];
   totalPrice!: number;
   cartProducts: Product[] = [];
   finalProducts: { id: number, quantity: number; }[] = [];
