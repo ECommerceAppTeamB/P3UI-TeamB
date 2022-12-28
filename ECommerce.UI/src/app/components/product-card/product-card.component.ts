@@ -17,7 +17,7 @@ export class ProductCardComponent implements OnInit{
   }[] = [];
   subscription!: Subscription;
   totalPrice: number = 0;
-  quantity: number = 0;
+  quantity: number = 0; //the value the user enters in the quanitity selection box
 
   @Input() productInfo!: Product;
 
@@ -34,40 +34,49 @@ export class ProductCardComponent implements OnInit{
   }
 
   addToCart(product: Product): void {
-
+    //product is the item being clicked on
     let inCart = false;
 
     this.products.forEach(
       (element) => {
         if(element.product == product){
-          element.quantity += this.quantity;
-          let cart = {
-            cartCount: this.cartCount + 1,
-            products: this.products,
-            totalPrice: this.totalPrice + product.price
-          };
-          this.productService.setCart(cart);
+          //if the users quantity is less than the items max quantity minus whats in the cart for that specific item, then do stuff below
+          if(this.quantity <= element.product.quantity - element.quantity && this.quantity > 0) {
+            element.quantity += this.quantity;
+            console.log("element.quantity: " + element.quantity);
+            console.log("element.product.quantity: " + element.product.quantity);
+            console.log("product.quantity: " + product.quantity);
+            let cart = {
+              cartCount: this.cartCount += this.quantity,
+              products: this.products,
+              totalPrice: this.totalPrice + product.price
+            };
+            this.productService.setCart(cart);
+            inCart=true;
+            return;
+          }
           inCart=true;
-          return;
         };
       }
     );
 
     if(inCart == false){
       if(this.quantity <= product.quantity && this.quantity > 0) {
+        console.log("hi im running");
         let newProduct = {
           product: product,
           quantity: this.quantity,
         };
         this.products.push(newProduct);
         let cart = {
-          cartCount: this.cartCount + 1,
+          cartCount: this.cartCount += this.quantity,
           products: this.products,
           totalPrice: this.totalPrice + product.price
         }
         this.productService.setCart(cart);
       }
       else {
+        console.log("error");
         //error message on the UI
       }
     }
