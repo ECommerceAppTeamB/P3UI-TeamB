@@ -1,17 +1,17 @@
 <img src="../../../assets/images/rev-logo.png" width="30%" height="30%" alt="Revature" />
-<form id="login-form" [formGroup]="loginForm">
+<form id="login-form" [formGroup]="loginForm" #loginFormElement="ngForm">
   <div class="form-group">
-    <label for="exampleInputEmail1">Email address</label>
-    <input type="email" class="form-control" formControlName="email" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email" />
-
-    <!-- ! Test -->
-    <div *ngIf="loginForm.get('email')?.invalid && loginForm.get('email')?.touched">
+    <label for="login-email">Email address</label>
+    <input type="email" class="form-control" formControlName="email" id="login-email" aria-describedby="emailHelp" placeholder="Enter email"
+      [ngClass]="{ 'is-invalid': loginForm.get('email')?.invalid && (loginForm.get('email')?.dirty || loginFormElement.submitted) }" />
+    <!-- Email Validation -->
+    <div *ngIf="loginForm.get('email')?.invalid && loginForm.get('email')?.dirty">
       <div class="error" *ngIf="loginForm.get('email')?.errors?.required">
-        <small id="emailHelp" class="form-text text-muted">Email is required
+        <small id="emailHelp" class="form-text text-danger">Email is required
         </small>
       </div>
       <div class="error" *ngIf="loginForm.get('email')?.errors?.email">
-        <small id="emailHelp" class="form-text text-muted">Invalid email address
+        <small id="emailHelp" class="form-text text-danger">Invalid email address
         </small>
       </div>
     </div>
@@ -19,11 +19,11 @@
   </div>
 
   <div class="form-group">
-    <label for="exampleInputPassword1">Password</label>
-    <input type="password" class="form-control" formControlName="password" id="exampleInputPassword1" placeholder="Password" />
+    <label for="login-pw">Password</label>
+    <input type="password" class="form-control" formControlName="password" id="login-pw" placeholder="Password" />
+    <button type="submit" class="btn btn-primary mt-3" (click)="onSubmit()">Login</button>
+    <button type="submit" class="btn btn-primary mt-3" [routerLink]="['/register']">
+      Register
+    </button>
   </div>
-  <button class="btn btn-primary" (click)="onSubmit()">Login</button>
-  <button class="btn btn-primary" [routerLink]="['/register']">
-    Register
-  </button>
 </form>

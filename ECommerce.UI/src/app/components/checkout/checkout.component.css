@@ -1,4 +1,4 @@
-.table 
+.table
 {
     margin-left: 3%;
 }
@@ -18,7 +18,18 @@ body{
     height: 100vh;
 
 }
+.form-control {
+    border: 1px solid grey;
+}
 
+.form-control.is-invalid {
+    border: 1px solid red;
+}
+
+.error {
+    color: red;
+    font-size: 18px;
+}
 
 .card{
     border:none;
@@ -95,7 +106,7 @@ input::-webkit-inner-spin-button {
 
 .yellow{
 
-    color: #fdcc49; 
+    color: #fdcc49;
 }
 
 .decoration{
@@ -120,5 +131,5 @@ input::-webkit-inner-spin-button {
 .decoration:hover{
 
     text-decoration: none;
-    color: #fdcc49; 
+    color: #fdcc49;
 }

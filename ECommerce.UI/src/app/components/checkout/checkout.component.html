@@ -1,101 +1,137 @@
 <app-navbar></app-navbar>
 
 <div class="container mt-5 px-5">
+    <form id="register-form" [formGroup]="checkoutForm" #registerFormElement="ngForm">
 
-    <div class="mb-4">
-
-        <h2>Confirm order and pay</h2>
-    <span>please make the payment, after that you can enjoy all the features and benefits.</span>
-        
-    </div>
-    <div class="row">
-        <div class="col-md-8">
-            <div class="card p-3">
-
-                <h6 class="text-uppercase">Payment details</h6>
-                <div class="inputbox mt-3"> <input type="text" name="name" class="form-control" required="required"> <span>Name on card</span> </div>
-
-                <div class="row">
-
-                    <div class="col-md-6">
-
-                        <div class="inputbox mt-3 mr-2"> <input type="text" name="name" class="form-control" required="required"> <i class="fa fa-credit-card"></i> <span>Card Number</span> 
-                        </div>
-
-                    </div>
-                    <div class="col-md-6">
-                        <div class="d-flex flex-row">
-                            <div class="inputbox mt-3 mr-2"> <input type="text" name="name" class="form-control" required="required"> <span>Expiry</span> </div>
-
-                        <div class="inputbox mt-3 mr-2"> <input type="text" name="name" class="form-control" required="required"> <span>CVV</span> </div>
-                        </div>                        
-                    </div>                   
-                </div>
-
-                <div class="mt-4 mb-4">
-
-                    <h6 class="text-uppercase">Billing Address</h6>
-                    <div class="row mt-3">
-
-                        <div class="col-md-6">
-
-                            <div class="inputbox mt-3 mr-2"> <input type="text" name="name" class="form-control" required="required"> <span>Street Address</span> </div>
-                            
-                        </div>
-
-
-                        <div class="col-md-6">
-
-                            <div class="inputbox mt-3 mr-2"> <input type="text" name="name" class="form-control" required="required"> <span>City</span> </div>
-                            
-                        </div>
-                    </div>
-
-                    <div class="row mt-2">
-
-                        <div class="col-md-6">
-
-                            <div class="inputbox mt-3 mr-2"> <input type="text" name="name" class="form-control" required="required"> <span>State/Province</span> </div>        
-
-                        </div>
-                        <div class="col-md-6">
-
-                            <div class="inputbox mt-3 mr-2"> <input type="text" name="name" class="form-control" required="required"> <span>Zip code</span> </div>              
-
-                        </div>                      
-                    </div>
-                </div>
-            </div>
-
-            <div class="mt-4 mb-4 d-flex justify-content-between">
-
-                <button class="btn btn-danger" [routerLink]="['/cart']">Back to Cart</button>
-
-                <button class="btn btn-success px-3" (click)="onSubmit();">Pay ${{totalPrice}}</button>
-
-            </div>
-
+        <div class="mb-3">
+            <h2>Confirm Your Order</h2>
+            <span>Enter details below to confirm your order:</span>
         </div>
 
-        <div class="col-md-4">
+        <div class="row">
+            <div class="col-md-8">
+                <div class="card p-3">
 
-            <div class="card card-blue p-3 text-white mb-3">
+                    <h6 class="text-uppercase">Payment details</h6>
+                    <div class="inputbox mt-3"> <input type="text" name="name" class="form-control" formControlName="cardName" required="required">
+                        <span>Name on card</span>
+                    </div>
 
-            <span>You have to pay</span>
-                <div class="d-flex flex-row align-items-end mb-3">
-                    <h1 class="mb-0 yellow">${{totalPrice}}</h1>
+                    <div class="row">
+
+                        <div class="col-md-6">
+                            <div class="inputbox mt-3 mr-2"> <input type="number" name="name" class="form-control" formControlName="cardNum"
+                                    required="required"> <i class="fa fa-credit-card"></i> <span>Card Number</span>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="d-flex flex-row">
+                                <div class="inputbox mt-3 mr-2"> <input type="text" name="name" class="form-control" formControlName="expDate"
+                                        required="required" maxlength="5">
+                                    <span>Expiry</span>
+                                </div>
+
+                                <div class="inputbox mt-3 mr-2"> <input type="input" name="name" class="form-control" formControlName="cvv"
+                                        required="required" maxlength="3">
+                                    <span>CVV</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Validation Messages -->
+                        <div>
+                            <div *ngIf="checkoutForm.get('cardNum')?.hasError('minLength') && checkoutForm.get('cardNum')?.touched">
+                                <span class="error">
+                                    <small id="cardNumHelp" class="form-text text-danger">Invalid card number</small>
+                                </span>
+                            </div>
+                            <div *ngIf="checkoutForm.get('expDate')?.hasError('invalidFormat') && checkoutForm.get('expDate')?.touched">
+                                <span class="error">
+                                    <small id="expDateHelp" class="form-text text-danger">Invalid exp. date</small>
+                                </span>
+                            </div>
+                            <div *ngIf="checkoutForm.get('cvv')?.hasError('minLength') && checkoutForm.get('cvv')?.touched">
+                                <span class="error">
+                                    <small id="cvvHelp" class="form-text text-danger">CVV is not valid</small>
+                                </span>
+                            </div>
+                        </div>
+                        <!-- End Validation Messages -->
+
+                        <div class="mt-4 mb-4">
+
+                            <h6 class="text-uppercase">Billing Address</h6>
+                            <div class="row mt-3">
+
+                                <div class="col-md-6">
+
+                                    <div class="inputbox mt-3 mr-2"> <input type="text" name="name" class="form-control" required="required">
+                                        <span>Street Address</span>
+                                    </div>
+
+                                </div>
+
+
+                                <div class="col-md-6">
+
+                                    <div class="inputbox mt-3 mr-2"> <input type="text" name="name" class="form-control" required="required">
+                                        <span>City</span>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                            <div class="row mt-2">
+
+                                <div class="col-md-6">
+                                    <div class="inputbox mt-3 mr-2"> <input type="text" name="name" class="form-control" required="required">
+                                        <span>State/Province</span>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <div class="inputbox mt-3 mr-2"> <input type="text" name="name" class="form-control" formControlName="zipCode"
+                                            required="required">
+                                        <span>Zip code</span>
+                                    </div>
+
+                                    <div *ngIf="checkoutForm.get('zipCode')?.hasError('minLength') && checkoutForm.get('zipCode')?.touched">
+                                        <span class="error">
+                                            <small id="zipCodeHelp" class="form-text text-danger">Invalid Zip</small>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="mt-4 mb-4 d-flex justify-content-between">
+
+                            <button class="btn btn-danger" [routerLink]="['/cart']">Back to Cart</button>
+
+                            <button class="btn btn-success px-3" (click)="onSubmit();">Pay ${{totalPrice}}</button>
+
+                        </div>
+                    </div>
                 </div>
-
-                <div class="hightlight">
-
-                    <span>100% Guaranteed Satisfaction!</span>
-                    
-
-                </div>
-                
             </div>
-            
+
+            <div class="col-md-4 right-card">
+                <div class="card card-blue p-3 text-white mb-3">
+
+                    <span>Order Total</span>
+                    <div class="d-flex flex-row align-items-end mb-3">
+                        <h1 class="mb-0 yellow">${{totalPrice}}</h1>
+                    </div>
+
+                    <!--! Typo in class -->
+                    <div class="hightlight">
+                        <span>100% Guaranteed Satisfaction!</span>
+                    </div>
+                </div>
+            </div>
         </div>
-        
-    </div>
+
+    </form>
 </div>
