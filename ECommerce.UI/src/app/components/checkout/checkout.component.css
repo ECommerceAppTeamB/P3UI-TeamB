@@ -47,13 +47,6 @@ body {
     border-bottom: 2px solid red !important;
 }
 
-/* ::ng-deep #checkout-ctrl.invalid {
-    border: 1px solid red !important;
-}
-
-::ng-deep #checkout-ctrl.invalid:focus {
-    border-bottom: 2px solid red !important;
-} */
 
 .error {
     color: red;

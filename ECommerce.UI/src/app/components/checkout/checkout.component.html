@@ -1,6 +1,6 @@
 <app-navbar></app-navbar>
 
-<div class="container mt-5 px-5">
+<div class="container mt-5 px-3">
     <form id="register-form" [formGroup]="checkoutForm" #checkoutFormElement="ngForm">
         <!-- (ngSubmit)="onSubmit() -->
         <div class="mb-3">
@@ -60,26 +60,6 @@
                             </div>
                         </div>
 
-                        <!-- Validation Messages -->
-                        <!-- <div> -->
-                        <!-- <div *ngIf="checkoutForm.get('cardNum')?.hasError('minLength') && checkoutForm.get('cardNum')?.touched">
-                                <span class="error">
-                                    <small id="cardNumHelp" class="form-text text-danger">Invalid Card Number</small>
-                                </span>
-                            </div> -->
-                        <!-- <div *ngIf="checkoutForm.get('expDate')?.hasError('invalidFormat') && checkoutForm.get('expDate')?.touched">
-                                <span class="error">
-                                    <small id="expDateHelp" class="form-text text-danger">Invalid Exp. Date</small>
-                                </span>
-                            </div> -->
-                        <!-- <div *ngIf="checkoutForm.get('cvv')?.hasError('minLength') && checkoutForm.get('cvv')?.touched">
-                                <span class="error">
-                                    <small id="cvvHelp" class="form-text text-danger">Invalid CVV</small>
-                                </span>
-                            </div> -->
-                        <!-- </div>  -->
-                        <!-- End Validation Messages -->
-
                         <div class="mt-4 mb-4">
 
                             <h6 class="text-uppercase">Billing Address</h6>
@@ -133,30 +113,27 @@
 
 
                         <div class="mt-4 mb-4 d-flex justify-content-between">
-
-                            <button class="btn btn-danger" [routerLink]="['/cart']">Back to Cart</button>
-
+                            <button class="btn btn-info" [routerLink]="['/cart']">Back to Cart</button>
                             <button class="btn btn-success px-3" (click)="onSubmit();">Pay ${{totalPrice}}</button>
-
                         </div>
                     </div>
                 </div>
             </div>
 
             <div class="col-md-4 right-card">
-                <div class="card card-blue p-3 text-white mb-3">
+                <div class="card card-blue text-center p-3 text-white mb-3">
 
                     <span>Order Total</span>
-                    <div class="d-flex flex-row align-items-end mb-3">
+                    <div class="d-flex flex-row justify-content-center mb-3">
                         <h1 class="mb-0 yellow">${{totalPrice}}</h1>
                     </div>
 
                     <div class="highlight">
-                        <span>100% Guaranteed Satisfaction!</span>
+                        <span>100% Satisfaction Guarantee!</span>
                     </div>
                 </div>
             </div>
-        </div>
 
+        </div>
     </form>
 </div>
