@@ -24,6 +24,8 @@ todos.md
 *.userosscache
 *.sln.docstates
 */.vscode/*
+.vscode/
+.angular
 
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
