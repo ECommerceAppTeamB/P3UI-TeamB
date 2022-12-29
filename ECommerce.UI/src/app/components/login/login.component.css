@@ -14,11 +14,11 @@ img {
     padding-top: 2%;
 }
 
-#login-email {
+.form-control {
     border: 1px solid grey;
 }
 
-#login-email.is-invalid {
+.form-control.is-invalid {
     border: 1px solid red;
 }
 

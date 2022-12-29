@@ -17,11 +17,11 @@ img
     padding-top: 2%;
 }
 
-#register-email {
+.form-control {
     border: 1px solid grey;
 }
 
-#register-email.is-invalid {
+.form-control.is-invalid {
     border: 1px solid red;
 }
 

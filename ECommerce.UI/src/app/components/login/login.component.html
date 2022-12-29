@@ -1,9 +1,12 @@
-<img src="../../../assets/images/rev-logo.png" width="30%" height="30%" alt="Revature" />
+<div class="container mx-auto mt-1">
+  <img src="../../../assets/images/rev-logo.png" alt="Revature logo" />
+</div>
 <form id="login-form" [formGroup]="loginForm" #loginFormElement="ngForm">
   <div class="form-group">
     <label for="login-email">Email address</label>
     <input type="email" class="form-control" formControlName="email" id="login-email" aria-describedby="emailHelp" placeholder="Enter email"
       [ngClass]="{ 'is-invalid': loginForm.get('email')?.invalid && (loginForm.get('email')?.dirty || loginFormElement.submitted) }" />
+
     <!-- Email Validation -->
     <div *ngIf="loginForm.get('email')?.invalid && loginForm.get('email')?.dirty">
       <div class="error" *ngIf="loginForm.get('email')?.errors?.required">
@@ -20,9 +23,11 @@
   <div class="form-group">
     <label for="login-pw">Password</label>
     <input type="password" class="form-control" formControlName="password" id="login-pw" placeholder="Password" />
+
     <button type="submit" class="btn btn-primary mt-3" (click)="onSubmit()">Login</button>
-    <button type="submit" class="btn btn-primary mt-3" [routerLink]="['/register']">
+    <button type="submit" class="btn btn-primary mt-3 mx-3" [routerLink]="['/register']">
       Register
     </button>
+
   </div>
 </form>

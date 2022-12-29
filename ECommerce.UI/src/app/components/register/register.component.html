@@ -1,4 +1,9 @@
-<img src="../../../assets/images/rev-logo.png" width="30%" height="30%" alt="Revature">
+<button type="submit" class="btn btn-sm btn-secondary mt-1 mx-3" [routerLink]="['/login']">
+  ← Back to Login
+</button>
+<div class="mx-auto">
+  <img src="../../../assets/images/rev-logo.png" alt="Revature logo" />
+</div>
 <form id="register-form" [formGroup]="registerForm" #registerFormElement="ngForm">
   <div class="form-group">
     <label for="inputFirstName">First Name</label>
@@ -27,6 +32,7 @@
   <div class="form-group">
     <label for="inputPassword">Password</label>
     <input type="password" class="form-control" formControlName="password" id="inputPassword" placeholder="Enter Password">
+    <button class="btn btn-primary mt-3" (click)="onSubmit()">Register</button>
   </div>
-  <button class="btn btn-primary" (click)="onSubmit()">Register</button>
+
 </form>
