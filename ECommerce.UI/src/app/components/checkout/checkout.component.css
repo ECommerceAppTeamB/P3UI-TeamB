@@ -1,33 +1,27 @@
-.table 
-{
+.table {
     margin-left: 3%;
 }
 
-.btn
-{
+.btn {
     margin-left: 2%;
 }
 
-body{
-
+body {
     background-color: #eee;
 }
 
-.container{
-
+.container {
     height: 100vh;
-
 }
 
-
-.card{
-    border:none;
+.card {
+    border: none;
 }
 
 .form-control {
     border-bottom: 2px solid #eee !important;
     border: none;
-    font-weight: 600
+    font-weight: 600;
 }
 
 .form-control:focus {
@@ -40,7 +34,24 @@ body{
     border-bottom: 2px solid blue !important;
 }
 
+#checkout-ctrl {
+    border-bottom: 2px solid blue;
+}
 
+#checkout-ctrl.invalid {
+    border-radius: 0px;
+    border-bottom: 1px solid red !important;
+}
+
+#checkout-ctrl.invalid:focus {
+    border-bottom: 2px solid red !important;
+}
+
+
+.error {
+    color: red;
+    font-size: 18px;
+}
 
 .inputbox {
     position: relative;
@@ -69,22 +80,22 @@ input::-webkit-inner-spin-button {
     margin: 0
 }
 
-.inputbox input:focus~span {
+.inputbox input:focus ~ span {
     transform: translateX(-0px) translateY(-15px);
     font-size: 12px
 }
 
-.inputbox input:valid~span {
+.inputbox input:valid ~ span {
     transform: translateX(-0px) translateY(-15px);
     font-size: 12px
 }
 
-.card-blue{
+.card-blue {
 
     background-color: #F26925;
 }
 
-.hightlight{
+.highlight {
 
     background-color: #F26925;
     padding: 10px;
@@ -93,12 +104,12 @@ input::-webkit-inner-spin-button {
     font-size: 14px;
 }
 
-.yellow{
+.yellow {
 
-    color: #fdcc49; 
+    color: #fdcc49;
 }
 
-.decoration{
+.decoration {
 
     text-decoration: none;
     font-size: 14px;
@@ -107,18 +118,17 @@ input::-webkit-inner-spin-button {
 .btn-success {
     color: #fff;
     background-color: #F26925;
-    border-color:#F26925;
+    border-color: #F26925;
 }
 
 .btn-success:hover {
     color: #fff;
-    background-color:green;
+    background-color: green;
     border-color: green;
 }
 
 
-.decoration:hover{
-
+.decoration:hover {
     text-decoration: none;
-    color: #fdcc49; 
+    color: #fdcc49;
 }
