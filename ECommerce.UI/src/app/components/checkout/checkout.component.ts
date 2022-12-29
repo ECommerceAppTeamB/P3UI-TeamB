@@ -49,10 +49,10 @@ export class CheckoutComponent implements OnInit {
   onSubmit(): void {
     this.products.forEach(
       (element) => {
-        const id = element.product.id;
-        const quantity = element.quantity;
-        this.finalProducts.push({ id, quantity });
-      }
+        const id = element.product.productId;
+        const quantity = element.quantity
+        this.finalProducts.push({id, quantity})
+      } 
     );
 
     if (this.finalProducts.length > 0) {

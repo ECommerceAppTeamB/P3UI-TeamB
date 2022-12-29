@@ -12,8 +12,8 @@ export class ProductCardComponent implements OnInit{
 
   cartCount!: number;
   products: {
-    product: Product,
-    quantity: number
+    product: Product, //how many of each thing is in the cart
+    quantity: number //how many different things are in the cart
   }[] = [];
   subscription!: Subscription;
   totalPrice: number = 0;
@@ -39,21 +39,18 @@ export class ProductCardComponent implements OnInit{
 
     this.products.forEach(
       (element) => {
+        console.log(element.quantity);
         if(element.product == product){
           //if the users quantity is less than the items max quantity minus whats in the cart for that specific item, then do stuff below
-          if(this.quantity <= element.product.quantity && this.quantity > 0) {
+          if(this.quantity <= element.product.productQuantity - element.quantity && this.quantity > 0) {
             element.quantity += this.quantity;
-
-            //need to update the quantity on the backend
-            element.product.quantity -= this.quantity;
-            
             // console.log("element.quantity: " + element.quantity);
-            // console.log("element.product.quantity: " + element.product.quantity);
-            // console.log("product.quantity: " + product.quantity);
+            // console.log("element.product.quantity: " + element.product.productQuantity);
+            // console.log("product.quantity: " + product.productQuantity);
             let cart = {
               cartCount: this.cartCount += this.quantity,
               products: this.products,
-              totalPrice: this.totalPrice + product.price
+              totalPrice: this.totalPrice + product.productPrice
             };
             this.productService.setCart(cart);
             inCart=true;
@@ -65,7 +62,8 @@ export class ProductCardComponent implements OnInit{
     );
 
     if(inCart == false){
-      if(this.quantity <= product.quantity && this.quantity > 0) {
+
+      if(this.quantity <= product.productQuantity && this.quantity > 0) {
         console.log("hi im running");
         let newProduct = {
           product: product,
@@ -75,14 +73,15 @@ export class ProductCardComponent implements OnInit{
         let cart = {
           cartCount: this.cartCount += this.quantity,
           products: this.products,
-          totalPrice: this.totalPrice + product.price
+          totalPrice: this.totalPrice + product.productPrice
         }
         this.productService.setCart(cart);
-        product.quantity -= this.quantity;
+        //product.productQuantity -= this.quantity;
       }
       else {
         console.log("error");
         //error message on the UI
+
       }
     }
       
