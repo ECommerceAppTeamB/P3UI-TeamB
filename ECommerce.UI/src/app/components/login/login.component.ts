@@ -1,38 +1,37 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, UntypedFormControl, UntypedFormGroup } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
-  selector: 'app-login',
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
+	selector: 'app-login',
+	templateUrl: './login.component.html',
+	styleUrls: ['./login.component.css'],
 })
+
 export class LoginComponent implements OnInit {
+	loginForm: FormGroup = this.fb.group({});
 
-  loginForm = new UntypedFormGroup({
-    email: new UntypedFormControl(''),
-    password: new UntypedFormControl('')
-  })
-  
+	constructor(private authService: AuthService, private router: Router, private fb: FormBuilder) {}
 
-  constructor(private authService: AuthService, private router: Router) { }
+	ngOnInit() {
+		this.loginForm = this.fb.group({
+			email: ['', [Validators.required, Validators.email], { updateOn: 'blur' }],
+			password: ['', Validators.required],
+		});
+	}
 
-  ngOnInit(): void {
-  }
-  
-  onSubmit(): void {
-    this.authService.login(this.loginForm.get('email')?.value, this.loginForm.get('password')?.value).subscribe(
-      () => {
-        this.authService.loggedIn=true;
-      },
-      (err) => console.log(err),
-      () => this.router.navigate(['home'])
-    );
-  }
+	onSubmit(): void {
+		const email = this?.loginForm?.get('email')?.value;
+		const password = this?.loginForm?.get('password')?.value;
+		this.authService.login(email, password).subscribe(
+			() => {this.authService.loggedIn = true;},
+			(err) => console.log(err),
+			() => this.router.navigate(['home'])
+		);
+	};
 
-  register(): void {
-    this.router.navigate(['register']);
-  }
-
+	register(): void {
+		this.router.navigate(['register']);
+	}
 }
