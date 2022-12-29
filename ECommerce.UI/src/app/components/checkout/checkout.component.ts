@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Product } from 'src/app/models/product';
 import { ProductService } from 'src/app/services/product.service';
-import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
+import { CheckoutService } from 'src/app/services/checkout.service';
 
 @Component({
   selector: 'app-checkout',
@@ -10,31 +11,28 @@ import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms
   styleUrls: ['./checkout.component.css']
 })
 export class CheckoutComponent implements OnInit {
+  checkoutForm: FormGroup = this.fb.group({});
 
-  products: {
-    product: Product,
-    quantity: number
-  }[] = [];
+  products: { product: Product, quantity: number; }[] = [];
   totalPrice!: number;
   cartProducts: Product[] = [];
-  finalProducts: {id: number, quantity: number}[] = []; 
+  finalProducts: { id: number, quantity: number; }[] = [];
 
-  checkoutForm = new UntypedFormGroup({
-    fname: new UntypedFormControl('', Validators.required),
-    lname: new UntypedFormControl('', Validators.required),
-    cardName: new UntypedFormControl('', Validators.required),
-    detail: new UntypedFormControl('', Validators.required),
-    addOne: new UntypedFormControl('', Validators.required),
-    addTwo: new UntypedFormControl(''),
-    city: new UntypedFormControl('', Validators.required),
-    state: new UntypedFormControl('', Validators.required),
-    zipCode: new UntypedFormControl('', Validators.required),
-    country: new UntypedFormControl('', Validators.required)
-  });
-
-  constructor(private productService: ProductService, private router: Router) { }
+  constructor(private productService: ProductService, public checkoutService: CheckoutService, private router: Router, private fb: FormBuilder) {
+  }
 
   ngOnInit(): void {
+    this.checkoutForm = this.fb.group({
+      cardName: ['', Validators.required],
+      cardNum: ['', this.checkoutService.validateCardNum],
+      expDate: ['', this.checkoutService.validateExpDate],
+      cvv: ['', this.checkoutService.validateCvv],
+      address: ['', Validators.required],
+      city: ['', Validators.required],
+      state: ['', Validators.required],
+      zipCode: ['', this.checkoutService.validateZip],
+    });
+
     this.productService.getCart().subscribe(
       (cart) => {
         this.products = cart.products;
@@ -46,16 +44,18 @@ export class CheckoutComponent implements OnInit {
     );
   }
 
+
+
   onSubmit(): void {
     this.products.forEach(
       (element) => {
         const id = element.product.id;
-        const quantity = element.quantity
-        this.finalProducts.push({id, quantity})
-      } 
+        const quantity = element.quantity;
+        this.finalProducts.push({ id, quantity });
+      }
     );
 
-    if(this.finalProducts.length > 0) {
+    if (this.finalProducts.length > 0) {
       this.productService.purchase(this.finalProducts).subscribe(
         (resp) => console.log(resp),
         (err) => console.log(err),
@@ -67,7 +67,7 @@ export class CheckoutComponent implements OnInit {
           };
           this.productService.setCart(cart);
           this.router.navigate(['/home']);
-        } 
+        }
       );
 
     } else {

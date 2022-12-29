@@ -1,22 +1,32 @@
 <img src="../../../assets/images/rev-logo.png" width="30%" height="30%" alt="Revature">
-<form id="register-form" [formGroup]="registerForm">
-    <div class="form-group">
-        <label for="inputFirstName">First Name</label>
-        <input type="text" class="form-control" formControlName="fname" id="inputFirstName" placeholder="Enter First Name">
+<form id="register-form" [formGroup]="registerForm" #registerFormElement="ngForm">
+  <div class="form-group">
+    <label for="inputFirstName">First Name</label>
+    <input type="text" class="form-control" formControlName="fname" id="inputFirstName" placeholder="Enter First Name">
+  </div>
+  <div class="form-group">
+    <label for="inputLastName">Last Name</label>
+    <input type="text" class="form-control" formControlName="lname" id="inputLastName" placeholder="Enter Last Name">
+  </div>
+  <div class="form-group">
+    <label for="register-email">Email address</label>
+    <input type="email" class="form-control" formControlName="email" id="register-email" aria-describedby="emailHelp" placeholder="Enter Email"
+      [ngClass]="{ 'is-invalid': registerForm.get('email')?.invalid && (registerForm.get('email')?.dirty || registerFormElement.submitted) }">
+    <!-- Email Validation -->
+    <div *ngIf="registerForm.get('email')?.invalid && registerForm.get('email')?.dirty">
+      <div class="error" *ngIf="registerForm.get('email')?.errors?.required">
+        <small id="emailHelp" class="form-text text-danger">Email is required
+        </small>
       </div>
-    <div class="form-group">
-        <label for="inputLastName">Last Name</label>
-        <input type="text" class="form-control" formControlName="lname" id="inputLastName" placeholder="Enter Last Name">
+      <div class="error" *ngIf="registerForm.get('email')?.errors?.email">
+        <small id="emailHelp" class="form-text text-danger">Invalid email address
+        </small>
+      </div>
     </div>
-    <div class="form-group">
-      <label for="inputEmail">Email address</label>
-      <input type="email" class="form-control" formControlName="email" id="inputEmail" aria-describedby="emailHelp" placeholder="Enter Email">
-      <small id="emailHelp" class="form-text text-muted">Ensure you enter the correct email</small>
-    </div>
-    <div class="form-group">
-      <label for="inputPassword">Password</label>
-      <input type="password" class="form-control" formControlName="password" id="inputPassword" placeholder="Enter Password">
-    </div>
-    <button class="btn btn-primary" (click)="onSubmit()">Register</button>
+  </div>
+  <div class="form-group">
+    <label for="inputPassword">Password</label>
+    <input type="password" class="form-control" formControlName="password" id="inputPassword" placeholder="Enter Password">
+  </div>
+  <button class="btn btn-primary" (click)="onSubmit()">Register</button>
 </form>
-
