@@ -23,6 +23,10 @@ export class RegisterComponent implements OnInit {
   }
 
   onSubmit(): void {
+    if (this?.registerForm?.invalid) {
+      return;
+    }
+
     const fname = this?.registerForm?.get('fname')?.value;
     const lname = this?.registerForm?.get('lname')?.value;
     const email = this?.registerForm?.get('email')?.value;

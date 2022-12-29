@@ -17,14 +17,33 @@ img
     padding-top: 2%;
 }
 
-#register-email {
-    border: 1px solid grey;
+small {
+    font-style: italic;
+    font-size: 17px;
 }
 
-#register-email.is-invalid {
-    border: 1px solid red;
+.form-control {
+    border: none;
+    border-radius: 0;
+    border-bottom: 1px solid blue;
+}
+
+.form-control.is-invalid {
+    border: none;
+    border-radius: 0;
+    border-bottom: 1px solid red;
+}
+
+.form-control:focus,
+.form-control.is-invalid:focus {
+    box-shadow: none;
+    border-width: 2px;
 }
 
 .error {
     color: red;
+}
+
+input::placeholder {
+    font-size: 18px;
 }
