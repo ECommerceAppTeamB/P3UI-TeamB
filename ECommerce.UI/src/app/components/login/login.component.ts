@@ -27,8 +27,6 @@ export class LoginComponent implements OnInit {
 			email: ['', [Validators.required, Validators.email], { updateOn: 'blur' }],
 			password: ['', Validators.required],
 		});
-		this.email = this?.loginForm?.get('email')?.value;
-		this.password = this?.loginForm?.get('password')?.value;
 	}
 
 	fieldInvalid(formControl: AbstractControl) {
@@ -36,35 +34,29 @@ export class LoginComponent implements OnInit {
 	}
 
 	onSubmit(): void {
+		const email = this?.loginForm?.get('email')?.value;
+		const password = this?.loginForm?.get('password')?.value;
 		if (this.loginForm.invalid) {
 			this.error = true;
 			this.success = false;
+			console.log(this.email, this.password);
 			return;
 		}
-		// ! Remove when API methods are done
-		else {
-			this.error = false;
-			this.success = true;
-			setTimeout(() => {
-				this.router.navigate(['home']);
-			}, 2000);
-		}
 
-		//   ! Uncomment once API methods are done
-		// this.authService.login(this.email, this.password).subscribe(
-		// 	() => {
-		// 		this.authService.loggedIn = true;
-		// 		this.error = false;
-		// 		this.success = true;
-		// setTimeout(() => {
-		// 	this.router.navigate(['home']);
-		// }, 2000);
-		// 	},
-		// 	(err) => {
-		// 		this.errorMessage = 'Invalid login information';
-		// 		this.error = true;
-		// 		this.success = false;
-		// 	}
-		// );
+		this.authService.login(email, password).subscribe(
+			() => {
+				this.authService.loggedIn = true;
+				this.error = false;
+				this.success = true;
+				setTimeout(() => {
+					this.router.navigate(['home']);
+				}, 2500);
+			},
+			(err) => {
+				this.errorMessage = 'Invalid login information';
+				this.error = true;
+				this.success = false;
+			}
+		);
 	};
 }

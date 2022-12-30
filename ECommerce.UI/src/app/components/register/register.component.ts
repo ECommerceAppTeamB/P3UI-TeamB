@@ -16,7 +16,7 @@ import { ValidateService } from 'src/app/services/validate.service';
 export class RegisterComponent implements OnInit {
   registerForm: FormGroup = this.fb.group({});
   errorMessage = 'Please check required fields';
-  successMessage = 'Successfully registered, please log in';
+  successMessage = 'Register successful, going back to login';
   error = false;
   success = false;
   fname!: string;
@@ -49,30 +49,20 @@ export class RegisterComponent implements OnInit {
       this.success = false;
       return;
     }
-    // ! Remove when API methods are done
-    else {
-      this.error = false;
-      this.success = true;
-      setTimeout(() => {
-        this.router.navigate(['login']);
-      }, 3000);
-    }
 
-    //   ! Uncomment once API methods are done
-    //   this.authService.register(this.fname, this.lname, this.email, this.password).subscribe(
-    //     () => {
-    //       this.error = false;
-    //       this.success = true;
-    //       setTimeout(() => {
-    //         this.router.navigate(['login']);
-    //       }, 3000);
-    //     },
-    //     (err) => {
-    //       this.errorMessage = 'User already exists';
-    //       this.error = true;
-    //       this.success = false;
-    //     }
-    //   );
-    // }
+    this.authService.register(this.fname, this.lname, this.email, this.password).subscribe(
+      () => {
+        this.error = false;
+        this.success = true;
+        setTimeout(() => {
+          this.router.navigate(['login']);
+        }, 3000);
+      },
+      (err) => {
+        this.errorMessage = 'User already exists';
+        this.error = true;
+        this.success = false;
+      }
+    );
   }
 }
