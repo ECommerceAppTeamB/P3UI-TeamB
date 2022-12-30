@@ -5,12 +5,13 @@ import { FormControl } from '@angular/forms';
 @Injectable({
   providedIn: 'root'
 })
-export class CheckoutService {
+
+export class ValidateService {
 
   constructor() { }
 
  validateCardNum(c: FormControl) {
-  // Check if the card number has a length between 15 and 16 characters
+  // Check if the numberlength is between 15 and 16 characters
   const isValid = c.value && c.value.toString().length >= 15 && c.value.toString().length <= 16;
   return isValid ? null : { minLength: true };
 }
