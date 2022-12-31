@@ -3,16 +3,13 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { Router } from '@angular/router';
 import { Product } from 'src/app/models/product';
 import { ProductService } from 'src/app/services/product.service';
-import { ValidateService } from 'src/app/services/validate.service';
-import { User } from '../../models/user';
+import { CheckoutService } from 'src/app/services/checkout.service';
 
 @Component({
   selector: 'app-checkout',
   templateUrl: './checkout.component.html',
-  styleUrls: ['./checkout.component.css'],
-  providers: [ValidateService]
+  styleUrls: ['./checkout.component.css']
 })
-
 export class CheckoutComponent implements OnInit {
   checkoutForm: FormGroup = this.fb.group({});
 
@@ -21,19 +18,19 @@ export class CheckoutComponent implements OnInit {
   cartProducts: Product[] = [];
   finalProducts: { id: number, quantity: number; }[] = [];
 
-  constructor(private productService: ProductService, public validation: ValidateService, private router: Router, private fb: FormBuilder) {
+  constructor(private productService: ProductService, public checkoutService: CheckoutService, private router: Router, private fb: FormBuilder) {
   }
 
   ngOnInit(): void {
     this.checkoutForm = this.fb.group({
       cardName: ['', Validators.required],
-      cardNum: ['', this.validation.validateCardNum],
-      expDate: ['', this.validation.validateExpDate],
-      cvv: ['', this.validation.validateCvv],
+      cardNum: ['', this.checkoutService.validateCardNum],
+      expDate: ['', this.checkoutService.validateExpDate],
+      cvv: ['', this.checkoutService.validateCvv],
       address: ['', Validators.required],
       city: ['', Validators.required],
       state: ['', Validators.required],
-      zipCode: ['', this.validation.validateZip],
+      zipCode: ['', this.checkoutService.validateZip],
     });
 
     this.productService.getCart().subscribe(
@@ -47,13 +44,15 @@ export class CheckoutComponent implements OnInit {
     );
   }
 
+
+
   onSubmit(): void {
     this.products.forEach(
       (element) => {
         const id = element.product.productId;
         const quantity = element.quantity
         this.finalProducts.push({id, quantity})
-      }
+      } 
     );
 
     if (this.finalProducts.length > 0) {

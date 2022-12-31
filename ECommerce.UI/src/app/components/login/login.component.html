@@ -1,38 +1,28 @@
-<div class="container mx-auto m-2">
-  <img src="../../../assets/images/rev-logo.png" alt="Revature logo" style="width: 20%; height: 20%;">
-</div>
-
-<form class="pt-0 mx-2" id="login-form" [formGroup]="loginForm" #loginFormElement="ngForm" (ngSubmit)="onSubmit()">
-  <ux-tip [errorMessage]="errorMessage" [successMessage]="successMessage" [error]="error" [success]="success"></ux-tip>
-
+<img src="../../../assets/images/rev-logo.png" width="30%" height="30%" alt="Revature" />
+<form id="login-form" [formGroup]="loginForm" #loginFormElement="ngForm">
   <div class="form-group">
     <label for="login-email">Email address</label>
     <input type="email" class="form-control" formControlName="email" id="login-email" aria-describedby="emailHelp" placeholder="Enter email"
       [ngClass]="{ 'is-invalid': loginForm.get('email')?.invalid && (loginForm.get('email')?.dirty || loginFormElement.submitted) }" />
-
     <!-- Email Validation -->
-    <div *ngIf="fieldInvalid(loginForm.get('email')! || loginFormElement.submitted)">
-    </div>
-    <div class="error" *ngIf="loginForm.get('email')?.errors?.email">
-      <small id="emailHelp" class="form-text text-danger">Invalid email address
-      </small>
+    <div *ngIf="loginForm.get('email')?.invalid && loginForm.get('email')?.dirty">
+      <div class="error" *ngIf="loginForm.get('email')?.errors?.required">
+        <small id="emailHelp" class="form-text text-danger">Email is required
+        </small>
+      </div>
+      <div class="error" *ngIf="loginForm.get('email')?.errors?.email">
+        <small id="emailHelp" class="form-text text-danger">Invalid email address
+        </small>
+      </div>
     </div>
   </div>
 
   <div class="form-group">
     <label for="login-pw">Password</label>
-    <input type="password" class="form-control" formControlName="password" id="login-pw" placeholder="Password"
-      [ngClass]="{ 'is-invalid': loginForm.get('password')?.invalid && (loginForm.get('password')?.dirty || loginFormElement.submitted) }" />
-    <!-- Password Validation -->
-    <!-- <div *ngIf="fieldInvalid(loginForm.get('password')!)">
-      <div class="sm-error" *ngIf="loginForm.get('password')?.errors?.required">
-        <small id="passwordHelp" class="form-text text-danger">Password is required</small>
-      </div>
-    </div> -->
-
-    <button type="submit" class="btn btn-block btn-primary mt-3" (click)="onSubmit()">Login</button>
-    <button type="submit" class="btn btn-block bg-info text-white border-primary mt-3" [routerLink]="['/register']">
-      Register New Account
+    <input type="password" class="form-control" formControlName="password" id="login-pw" placeholder="Password" />
+    <button type="submit" class="btn btn-primary mt-3" (click)="onSubmit()">Login</button>
+    <button type="submit" class="btn btn-primary mt-3" [routerLink]="['/register']">
+      Register
     </button>
   </div>
 </form>
