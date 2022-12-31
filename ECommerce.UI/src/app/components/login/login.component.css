@@ -14,32 +14,14 @@ img {
     padding-top: 2%;
 }
 
-small {
-    font-style: italic;
-    font-size: 17px;
+#login-email {
+    border: 1px solid grey;
 }
 
-.form-control {
-    border: none;
-    border-radius: 0;
-    border-bottom: 1px solid blue;
+#login-email.is-invalid {
+    border: 1px solid red;
 }
 
-.form-control.is-invalid {
-    border: none;
-    border-radius: 0;
-    border-bottom: 1px solid red;
-}
-
-.form-control:focus, .form-control.is-invalid:focus {
-     box-shadow:  none;
-     border-width: 2px;
-}
-
-.sm-error .error {
-    color: red;
-}
-
-input::placeholder {
-    font-size: 18px;
+.error {
+    color:red;
 }

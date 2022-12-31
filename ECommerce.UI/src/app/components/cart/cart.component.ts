@@ -15,7 +15,6 @@ export class CartComponent implements OnInit {
     quantity: number
   }[] = [];
   totalPrice!: number;
-
   cartProducts: Product[] = [];
 
   constructor(private productService: ProductService, private router: Router) { }
@@ -40,36 +39,6 @@ export class CartComponent implements OnInit {
     };
     this.productService.setCart(cart);
     this.router.navigate(['/home']);
-  }
-
-  removeItem(product: Product, quantity: number): void {
-    
-    if(product.productPrice*quantity <= 0){
-      this.totalPrice = 0;
-    }else{
-    this.totalPrice -= (product.productPrice * quantity);
-    }
-    if(this.totalPrice < 0){
-      this.totalPrice =0;
-    }
-
-    this.products.forEach(
-      (element) => {
-        if(element.product == product){
-            this.products.pop();
-        }});
-
-        let cart = {
-          cartCount: this.products.length,
-          products: this.products,
-          totalPrice: this.totalPrice
-        };
-        this.productService.setCart(cart);
-
-
-
-    
-
   }
 
 }
