@@ -2,6 +2,7 @@
 <table class="table table-striped" id="cart-table">
     <thead>
       <tr>
+        <th></th>
         <th scope="col">ID</th>
         <th scope="col">Name</th>
         <th scope="col">Quantity</th>
@@ -10,6 +11,7 @@
     </thead>
     <tbody id="cart-table-body">
         <tr *ngFor="let product of products;">
+            <td><button class="btn btn-warning"(click)="removeItem(product.product, product.quantity)">Remove Item</button></td>
             <td>{{product.product.productId}}</td>
             <td>{{product.product.productName}}</td>
             <td>{{product.quantity}}</td>
