@@ -3,6 +3,8 @@ import { FormBuilder, AbstractControl, FormGroup, Validators } from '@angular/fo
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
 import { UxTipComponent } from '../uxtip/uxtip.component';
+import { tap } from 'rxjs/operators';
+import { User } from '../../models/user';
 
 @Component({
 	selector: 'app-login',
@@ -17,8 +19,7 @@ export class LoginComponent implements OnInit {
 	successMessage = 'Successfully logged in';
 	error = false;
 	success = false;
-	email!: string;
-	password!: string;
+	currUser!: User;
 
 	constructor(private authService: AuthService, private router: Router, private fb: FormBuilder) { }
 
@@ -34,17 +35,19 @@ export class LoginComponent implements OnInit {
 	}
 
 	onSubmit(): void {
-		const email = this?.loginForm?.get('email')?.value;
-		const password = this?.loginForm?.get('password')?.value;
+		const email = this.loginForm.get('email')?.value;
+		const password = this.loginForm.get('password')?.value;
 		if (this.loginForm.invalid) {
 			this.error = true;
 			this.success = false;
-			console.log(this.email, this.password);
 			return;
 		}
 
-		this.authService.login(email, password).subscribe(
-			() => {
+		this.authService.login(email, password).pipe(
+			tap(response => this.currUser = new User(response.userId, response.firstName, response.lastName, response.email, response.password))
+		).subscribe(
+			(response) => {
+				console.log(response.user);
 				this.authService.loggedIn = true;
 				this.error = false;
 				this.success = true;
@@ -53,10 +56,12 @@ export class LoginComponent implements OnInit {
 				}, 2500);
 			},
 			(err) => {
+				console.log(email, password);
+				console.log(err);
 				this.errorMessage = 'Invalid login information';
 				this.error = true;
 				this.success = false;
 			}
 		);
-	};
+	}
 }

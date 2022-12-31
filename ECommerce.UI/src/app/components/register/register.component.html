@@ -10,17 +10,18 @@
   <div class="form-group">
     <label for="inputFirstName">First Name</label>
     <input type="text" class="form-control" formControlName="fname" id="inputFirstName" placeholder="Enter First Name"
-      [ngClass]="{ 'is-invalid': registerForm.get('fname')?.invalid && (registerForm.get('fname')?.dirty || registerFormElement.submitted) }">
+      [ngClass]="{ 'is-invalid': (registerForm.get('fname')?.invalid && (registerForm.get('fname')?.touched || registerFormElement.submitted)) }">
   </div>
   <div class="form-group">
     <label for="inputLastName">Last Name</label>
     <input type="text" class="form-control" formControlName="lname" id="inputLastName" placeholder="Enter Last Name"
-      [ngClass]="{ 'is-invalid': registerForm.get('lname')?.invalid && (registerForm.get('lname')?.dirty || registerFormElement.submitted) }">
+      [ngClass]="{ 'is-invalid': (registerForm.get('lname')?.invalid && (registerForm.get('lname')?.touched || registerFormElement.submitted)) }">
   </div>
+
   <div class="form-group">
     <label for="register-email">Email address</label>
     <input type="email" class="form-control" formControlName="email" id="register-email" aria-describedby="emailHelp" placeholder="Enter Email"
-      [ngClass]="{ 'is-invalid': registerForm.get('email')?.invalid && (registerForm.get('email')?.dirty || registerFormElement.submitted) }">
+      [ngClass]="{ 'is-invalid': (registerForm.get('email')?.invalid && (registerForm.get('email')?.touched || registerFormElement.submitted)) }">
     <!-- Email Validation -->
     <div *ngIf="fieldInvalid(registerForm.get('email')! || registerFormElement.submitted)">
       <div class="error" *ngIf="registerForm.get('email')?.errors?.required">
@@ -36,7 +37,20 @@
   <div class="form-group">
     <label for="inputPassword">Password</label>
     <input type="password" class="form-control" formControlName="password" id="inputPassword" placeholder="Enter Password"
-      [ngClass]="{ 'is-invalid': (registerForm.get('password')?.invalid || registerForm.get('password')?.hasError('minLength') && (registerForm.get('password')?.touched) || registerFormElement.submitted) }">
+      [ngClass]="{ 'is-invalid': (registerForm.get('password')?.invalid && (registerForm.get('password')?.touched || registerFormElement.submitted)) }">
+    <div *ngIf="fieldInvalid(registerForm.get('email')! || registerFormElement.submitted)">
+
+      <div class="error" *ngIf="registerForm.get('password')?.errors?.required">
+        <small id="passwordHelp" class="form-text text-danger">Password is required
+        </small>
+      </div>
+
+      <div class="error" *ngIf="registerForm.get('password')?.errors?.minlength">
+        <small id="passwordHelp" class="form-text text-danger">Password must be at least 5 characters long
+        </small>
+      </div>
+    </div>
+
     <button class="btn btn-block btn-primary mt-3" (click)="onSubmit()">Register</button>
   </div>
 

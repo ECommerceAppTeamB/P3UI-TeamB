@@ -3,8 +3,7 @@ import { FormBuilder, AbstractControl, FormGroup, Validators } from '@angular/fo
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
 import { UxTipComponent } from '../uxtip/uxtip.component';
-import { ValidateService } from 'src/app/services/validate.service';
-
+import { User } from '../../models/user';
 
 @Component({
   selector: 'app-register',
@@ -16,27 +15,21 @@ import { ValidateService } from 'src/app/services/validate.service';
 export class RegisterComponent implements OnInit {
   registerForm: FormGroup = this.fb.group({});
   errorMessage = 'Please check required fields';
-  successMessage = 'Register successful, going back to login';
+  successMessage = 'Registration successful, logging in...';
   error = false;
   success = false;
-  fname!: string;
-  lname!: string;
-  email!: string;
-  password!: string;
+  currUser!: User;
 
   constructor(private authService: AuthService, private router: Router, private fb: FormBuilder) { }
 
   ngOnInit() {
     this.registerForm = this.fb.group({
-      fname: ['', Validators.required, { updateOn: 'blur' }],
-      lname: ['', Validators.required, { updateOn: 'blur' }],
+      fname: ['', [Validators.required, Validators.minLength(1)], { updateOn: 'blur' }],
+      lname: ['', [Validators.required, Validators.minLength(1)], { updateOn: 'blur' }],
       email: ['', [Validators.required, Validators.email], { updateOn: 'blur' }],
-      password: ['', Validators.required],
+      password: ['', [Validators.required, Validators.minLength(5)], { updateOn: 'blur' }],
     });
-    this.fname = this?.registerForm?.get('email')?.value;
-    this.lname = this?.registerForm?.get('password')?.value;
-    this.email = this?.registerForm?.get('email')?.value;
-    this.password = this?.registerForm?.get('password')?.value;
+
   }
 
   fieldInvalid(formControl: AbstractControl) {
@@ -44,25 +37,28 @@ export class RegisterComponent implements OnInit {
   }
 
   onSubmit(): void {
+    const fname = this.registerForm?.get('fname')?.value;
+    const lname = this.registerForm?.get('lname')?.value;
+    const email = this.registerForm?.get('email')?.value;
+    const password = this.registerForm?.get('password')?.value;
+
     if (this.registerForm.invalid) {
       this.error = true;
       this.success = false;
       return;
     }
 
-    this.authService.register(this.fname, this.lname, this.email, this.password).subscribe(
-      () => {
+    this.authService.register(fname, lname, email, password).subscribe(
+      (response) => {
+        this.currUser = new User(response.id, response.firstName, response.lastName, response.email, response.password);
+        this.authService.loggedIn = true;
         this.error = false;
         this.success = true;
         setTimeout(() => {
-          this.router.navigate(['login']);
+          this.router.navigate(['home']);
         }, 3000);
       },
-      (err) => {
-        this.errorMessage = 'User already exists';
-        this.error = true;
-        this.success = false;
-      }
+
     );
   }
 }

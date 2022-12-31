@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { Product } from 'src/app/models/product';
 import { ProductService } from 'src/app/services/product.service';
 import { ValidateService } from 'src/app/services/validate.service';
+import { User } from '../../models/user';
 
 @Component({
   selector: 'app-checkout',
