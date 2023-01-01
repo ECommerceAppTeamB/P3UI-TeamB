@@ -19,6 +19,5 @@ export class UxTipComponent {
     this.successMessage;
     this.error = false;
     this.success = false;
-
   }
 }

@@ -45,6 +45,9 @@ export class RegisterComponent implements OnInit {
     if (this.registerForm.invalid) {
       this.error = true;
       this.success = false;
+      setTimeout(() => {
+        this.error = false;
+      }, 4000);
       return;
     }
 
