@@ -111,10 +111,9 @@
                             </div>
                         </div>
 
-
                         <div class="mt-4 mb-4 d-flex justify-content-between">
                             <button class="btn btn-info" [routerLink]="['/cart']">← Cart</button>
-                            <button class="btn btn-md btn-success px-3" (click)="onSubmit();">Finish and Pay ${{totalPrice}}</button>
+                            <button class="btn btn-md btn-success px-3" (click)="onSubmit();">Finish and Pay ${{totalPrice.toFixed(2)}}</button>
                         </div>
                     </div>
                 </div>
@@ -123,12 +122,13 @@
             <div class="col-md-4 right-card">
                 <div class="card card-blue text-center p-3 text-white mb-3">
 
-                    <span>Order Total</span>
+                    <span class="text-bold">Order Total</span>
                     <div class="d-flex flex-row justify-content-center mb-3">
-                        <h1 class="mb-0 yellow">${{totalPrice}}</h1>
+                        <h1 class="mt-3 yellow">${{totalPrice.toFixed(2)}}
+                        </h1>
                     </div>
 
-                    <div class="highlight">
+                    <div class="highlight mt-0">
                         <span>100% Satisfaction Guarantee!</span>
                     </div>
                 </div>
