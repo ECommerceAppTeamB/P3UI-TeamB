@@ -24,3 +24,19 @@ div {
   box-shadow: 0 5px 10px rgba(0, 0, 0, .2);
   transform: translate3d(0, -10px, 0);
 }
+
+.card-text {
+  white-space: normal;
+  font-size: 1.2vw;
+}
+
+#add-to-cart:focus {
+  border: 1px solid #3de854c9 !important;
+  box-shadow: 0;
+  outline: none;
+}
+
+input:focus {
+  box-shadow: 4px 4px 12px rgba(0, 0, 0, 0.1), 0 0 12px #fff !important;
+}
+

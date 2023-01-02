@@ -1,9 +1,13 @@
-.table 
-{
+.table {
     margin: 3%;
 }
 
-.btn
-{
+
+
+.btn {
     margin-left: 2%;
+}
+
+button[disabled] {
+    cursor: not-allowed;
 }
