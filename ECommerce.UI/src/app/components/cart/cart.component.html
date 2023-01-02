@@ -1,27 +1,30 @@
 <app-navbar></app-navbar>
-<button class="btn m-2" [class.btn-primary]="totalPrice == 0" [class.btn-outline-primary]="totalPrice > 0" [routerLink]="['/home']">←</button>
-<div *ngIf="totalPrice > 0" class="alert w-50 alert-success mx-auto text-center">Total: ${{totalPrice.toFixed(2)}}</div>
+<button class="btn m-2 d-inline-block" [class.btn-primary]="totalPrice == 0" [class.btn-outline-primary]="totalPrice > 0"
+  [routerLink]="['/home']">←</button>
+<div *ngIf="totalPrice > 0" class="alert  alert-success text-center mx-auto">Total: ${{totalPrice.toFixed(2)}}
+</div>
 <table class="table table-striped mx-auto mt-0" id="cart-table">
   <thead>
     <tr>
       <th></th>
-      <th scope="col" style="width: 8%;">Quantity</th>
+      <th scope="col" style="width: 10%;">Quantity</th>
       <th scope="col">Name</th>
       <th scope="col">Price</th>
       <th scope="col">Description</th>
-      <th scope="col">Actions</th>
     </tr>
   </thead>
   <tbody id="cart-table-body">
     <tr *ngFor="let product of products;">
-      <td><button class="btn btn-warning" (click)="removeItem(product.product, product.quantity)">Remove Item</button></td>
-      <td>
+      <td style="width: auto;">
+        <button class="btn btn-warning" (click)="updateCart(product.product, product.quantity)">Update Item</button>
+      </td>
+      <td class="pl-3">
         <div class="d-flex">
-          <input type="number" class="form-control form-control-sm" [(ngModel)]="product.quantity" (ngModelChange)="updateQuantity(product, $event)">
+          <input type="number" class="form-control form-control-sm" [(ngModel)]="product.quantity" min="0">
         </div>
       </td>
-      <td>{{product.product.productName}}</td>
-      <td>{{product.product.productPrice}}</td>
+      <td class="pl-3">{{product.product.productName}}</td>
+      <td>${{product.product.productPrice}}</td>
       <td class="text-muted">{{product.product.productDescription}}</td>
     </tr>
   </tbody>

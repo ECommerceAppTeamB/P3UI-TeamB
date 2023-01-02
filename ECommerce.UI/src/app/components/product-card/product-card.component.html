@@ -20,7 +20,7 @@
     <div class="input-group-prepend w-50">
       <button id="add-to-cart" class="btn btn-success w-100" (click)="addToCart(productInfo)">Add to Cart</button>
     </div>
-    <input type="number" class="form-control w-50" [(ngModel)]="quantity" aria-describedby="inputGroup-sizing-sm" min="0" max="50"
+    <input type="number" class="form-control w-50" [(ngModel)]="quantity" aria-describedby="inputGroup-sizing-sm" min="1" max="50"
       [disabled]="productInfo.productQuantity == 0">
   </div>
 

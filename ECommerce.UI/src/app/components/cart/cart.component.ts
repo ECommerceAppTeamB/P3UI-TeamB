@@ -86,5 +86,21 @@ export class CartComponent implements OnInit {
     let item = this.products.find(element => element.product == product);
     item!.quantity = quantity;
     this.recalculateTotalPrice();
+
+    if (quantity == 0) {
+      this.products = this.products.filter(element => element.product != product);
+    }
+
+    let cartCount = 0;
+    this.products.forEach((product) => {
+      cartCount += product.quantity;
+    });
+
+    let cart = {
+      cartCount: cartCount,
+      products: this.products,
+      totalPrice: this.totalPrice
+    };
+    this.productService.setCart(cart);
   }
 }

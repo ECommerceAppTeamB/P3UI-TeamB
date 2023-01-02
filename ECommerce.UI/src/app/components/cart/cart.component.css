@@ -11,3 +11,8 @@
 button[disabled] {
     cursor: not-allowed;
 }
+
+.alert {
+    font-weight: bold;
+    font-size: 1.2em;
+}

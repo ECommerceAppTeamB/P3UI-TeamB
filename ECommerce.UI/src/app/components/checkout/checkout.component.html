@@ -22,10 +22,11 @@
                         <div class="col-md-6">
                             <div class="inputbox mt-3 mr-2">
                                 <input type="number" name="name" class="form-control" id="checkout-ctrl" formControlName="cardNum" required="required"
-                                    [ngClass]="{ 'invalid': checkoutForm.get('cardNum')?.invalid && (checkoutForm.get('cardNum')?.touched) }">
+                                    [ngClass]="{ 'invalid': checkoutForm.get('cardNum')?.invalid && (checkoutForm.get('cardNum')?.touched || checkoutFormElement.submitted )}">
                                 <i class="fa fa-credit-card"></i> <span>Card Number</span>
                             </div>
-                            <div class="align-end" *ngIf="checkoutForm.get('cardNum')?.hasError('minLength') && checkoutForm.get('cardNum')?.touched">
+                            <div class="align-end"
+                                *ngIf="checkoutForm.get('cardNum')?.hasError('minLength') && (checkoutForm.get('cardNum')?.touched  || checkoutFormElement.submitted )">
                                 <span class="error">
                                     <small id="cardNumHelp" class="form-text text-danger">Invalid Card Number</small>
                                 </span>
@@ -37,21 +38,21 @@
                                 <div class="inputbox mt-3 mr-2">
                                     <input type="text" name="name" class="form-control" id="checkout-ctrl" formControlName="expDate"
                                         required="required" maxlength="5"
-                                        [ngClass]="{ 'invalid': checkoutForm.get('expDate')?.invalid && (checkoutForm.get('expDate')?.touched) }">
+                                        [ngClass]="{ 'invalid': checkoutForm.get('expDate')?.invalid && ((checkoutForm.get('expDate')?.touched) || checkoutFormElement.submitted )}">
                                     <span>Expiration</span>
                                 </div>
 
                                 <div class="inputbox mt-3 mr-2">
                                     <input type="input" name="name" class="form-control" id="checkout-ctrl" formControlName="cvv" required="required"
                                         maxlength="3"
-                                        [ngClass]="{ 'invalid': checkoutForm.get('cvv')?.invalid && (checkoutForm.get('cvv')?.touched) }">
+                                        [ngClass]="{ 'invalid': checkoutForm.get('cvv')?.invalid && ((checkoutForm.get('cvv')?.touched)  || checkoutFormElement.submitted ) }">
                                     <span>CVV</span>
                                 </div>
                             </div>
 
                             <div class="d-flex flex-row justify-content-between align-items-baseline">
                                 <span class="error"
-                                    *ngIf="checkoutForm.get('expDate')?.hasError('invalidFormat') && checkoutForm.get('expDate')?.touched">
+                                    *ngIf="checkoutForm.get('expDate')?.hasError('invalidFormat') && (checkoutForm.get('expDate')?.touched  || checkoutFormElement.submitted )">
                                     <small id="expDateHelp" class="form-text text-danger">Invalid Exp. Date</small>
                                 </span>
                                 <span class="error" *ngIf="checkoutForm.get('cvv')?.hasError('minLength') && checkoutForm.get('cvv')?.touched">
@@ -98,11 +99,12 @@
                                     <div class="inputbox mt-3 mr-2">
                                         <input type="text" name="name" class="form-control" id="checkout-ctrl" formControlName="zipCode"
                                             required="required"
-                                            [ngClass]="{ 'invalid': checkoutForm.get('zipCode')?.invalid && (checkoutForm.get('zipCode')?.touched) }">
+                                            [ngClass]="{ 'invalid': checkoutForm.get('zipCode')?.invalid && ((checkoutForm.get('zipCode')?.touched)  || checkoutFormElement.submitted )}">
                                         <span>Zip code</span>
                                     </div>
 
-                                    <div *ngIf="checkoutForm.get('zipCode')?.hasError('minLength') && checkoutForm.get('zipCode')?.touched">
+                                    <div
+                                        *ngIf="checkoutForm.get('zipCode')?.hasError('minLength') && (checkoutForm.get('zipCode')?.touched  || checkoutFormElement.submitted )">
                                         <span class="error">
                                             <small id="zipCodeHelp" class="form-text text-danger">Invalid Zip Code</small>
                                         </span>
