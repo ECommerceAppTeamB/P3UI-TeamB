@@ -1,26 +1,24 @@
 .card {
-    size: auto;
-    min-width: 200px;
-    max-width: 275px;
-    height: fit-content;
-    transition: .2s ease-out;
+  max-width: 550px;
+  flex: 1 0 calc(100% / 3);
+  height: fit-content;
+  transition: .2s ease-out;
+}
 
-  }
+img {
+  justify-content: center;
+  height: auto;
+  width: auto;
+  max-height: 200px;
+  max-width: 307px;
+  left: 0;
+}
 
-  img
-  {
-    justify-content: center;
-    height: auto;
-    width: auto;
-    max-height: 200px;
-    max-width: 307px;
-    left:0;
-  }
+div {
+  position: relative;
+  transition: .2s ease-out;
+}
 
-  div {
-    position: relative;
-    transition: .2s ease-out;
-  }
 
 .card:hover {
   box-shadow: 0 5px 10px rgba(0, 0, 0, .2);
@@ -41,3 +39,4 @@
 input:focus {
   box-shadow: 4px 4px 12px rgba(0, 0, 0, 0.1), 0 0 12px #fff !important;
 }
+

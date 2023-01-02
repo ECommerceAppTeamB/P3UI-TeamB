@@ -37,9 +37,13 @@ export class LoginComponent implements OnInit {
 	onSubmit(): void {
 		const email = this.loginForm.get('email')?.value;
 		const password = this.loginForm.get('password')?.value;
+
 		if (this.loginForm.invalid) {
 			this.error = true;
 			this.success = false;
+			setTimeout(() => {
+				this.error = false;
+			}, 4000);
 			return;
 		}
 
@@ -61,6 +65,10 @@ export class LoginComponent implements OnInit {
 				this.errorMessage = 'Invalid login information';
 				this.error = true;
 				this.success = false;
+				setTimeout(() => {
+					this.error = false;
+					this.errorMessage = '';
+				}, 4000);
 			}
 		);
 	}
