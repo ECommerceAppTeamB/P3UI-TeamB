@@ -22,4 +22,15 @@ describe('CartComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  beforeEach(()=>{
+    component.totalPrice = 1.00;
+    
+  });
+   
+  it('should set total price to 0.00',()=>{
+      component.emptyCart();
+      expect(component.totalPrice).toBe(0.00);
+  });
+  
 });
