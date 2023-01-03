@@ -42,32 +42,6 @@ export class CartComponent implements OnInit {
     });
   }
 
-  removeItem(product: Product, quantity: number): void {
-
-    if (product.productPrice * quantity <= 0) {
-      this.totalPrice = 0;
-    } else {
-      this.totalPrice -= (product.productPrice * quantity);
-    }
-    if (this.totalPrice < 0) {
-      this.totalPrice = 0;
-    }
-
-    this.products.forEach(
-      (element) => {
-        if (element.product == product) {
-          this.products.pop();
-        }
-      });
-
-    let cart = {
-      cartCount: this.products.length,
-      products: this.products,
-      totalPrice: this.totalPrice
-    };
-    this.productService.setCart(cart);
-  }
-
   updateQuantity(product: { product: Product, quantity: number; }, quantity: number): void {
     product.quantity = quantity;
     this.recalculateTotalPrice();
@@ -96,11 +70,10 @@ export class CartComponent implements OnInit {
       cartCount += product.quantity;
     });
 
-    let cart = {
+    this.productService.setCart({
       cartCount: cartCount,
       products: this.products,
       totalPrice: this.totalPrice
-    };
-    this.productService.setCart(cart);
+    });
   }
 }

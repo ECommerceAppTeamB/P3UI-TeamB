@@ -1,8 +1,10 @@
 import { Injectable } from '@angular/core';
+import { User } from '../models/user';
 
 @Injectable({
   providedIn: 'root'
 })
+
 export class LocalService {
 
   constructor() { }
@@ -20,5 +22,10 @@ export class LocalService {
 
   public clearData() {
     localStorage.clear();
+  }
+
+  public getCurrUser(): User {
+    const user = this.getData('currUser')!;
+    return JSON.parse(user);
   }
 }

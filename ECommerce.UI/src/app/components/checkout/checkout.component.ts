@@ -5,6 +5,7 @@ import { Product } from 'src/app/models/product';
 import { ProductService } from 'src/app/services/product.service';
 import { ValidateService } from 'src/app/services/validate.service';
 import { User } from '../../models/user';
+import { LocalService } from 'src/app/services/local.service';
 
 @Component({
   selector: 'app-checkout',
@@ -14,6 +15,8 @@ import { User } from '../../models/user';
 })
 
 export class CheckoutComponent implements OnInit {
+  currUser!: User;
+
   checkoutForm: FormGroup = this.fb.group({});
 
   products: { product: Product, quantity: number; }[] = [];
@@ -21,8 +24,11 @@ export class CheckoutComponent implements OnInit {
   cartProducts: Product[] = [];
   finalProducts: { id: number, quantity: number; }[] = [];
 
-  constructor(private productService: ProductService, public validation: ValidateService, private router: Router, private fb: FormBuilder) {
-  }
+  constructor(private localStore: LocalService,
+    private productService: ProductService,
+    private validation: ValidateService,
+    private router: Router,
+    private fb: FormBuilder) { }
 
   ngOnInit(): void {
     this.checkoutForm = this.fb.group({
@@ -36,6 +42,7 @@ export class CheckoutComponent implements OnInit {
       zipCode: ['', this.validation.validateZip],
     });
 
+    this.currUser = this.localStore.getCurrUser();
     this.productService.getCart().subscribe(
       (cart) => {
         this.products = cart.products;
@@ -51,8 +58,8 @@ export class CheckoutComponent implements OnInit {
     this.products.forEach(
       (element) => {
         const id = element.product.productId;
-        const quantity = element.quantity
-        this.finalProducts.push({id, quantity})
+        const quantity = element.quantity;
+        this.finalProducts.push({ id, quantity });
       }
     );
 
