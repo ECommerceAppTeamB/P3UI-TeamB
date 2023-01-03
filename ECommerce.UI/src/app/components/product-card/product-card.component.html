@@ -1,34 +1,29 @@
-<div class="card" style="width: 18rem;">
-    <img class="card-img-top" [src]="productInfo.productImage" alt="Card image cap">
-    <div class="card-body">
-      <h5 class="card-title">{{productInfo.productName}}</h5>
-      <p class="card-text">{{productInfo.productDescription}}</p>
+<div class="card bg-light m-2">
+  <img class="card-img-top mx-auto my-3" [src]="productInfo.productImage" alt="Card image cap">
+  <h4 class="card-title mx-auto text-center font-weight-bold">{{productInfo.productName}}</h4>
+  <p class="card-text mx-auto text-center text-secondary">{{productInfo.productDescription}}</p>
+
+  <div class="input-group input-group-sm mb-3 d-flex justify-content-center">
+    <div class="input-group-prepend mr-2">
     </div>
-    <div class="input-group input-group-sm mb-3">
-      <div class="input-group-prepend">
-        <span class="input-group-text" id="inputGroup-sizing-sm">$</span>
-      </div>
-      <input type="number" class="form-control" aria-label="Sizing example input" [value]="productInfo.productPrice" aria-describedby="inputGroup-sizing-sm" disabled>
-    </div>
-    <div class="input-group input-group-sm mb-3">
-        <div class="input-group-prepend">
-          <span class="input-group-text" id="inputGroup-sizing-sm">Quantity in Stock</span>
-        </div>
-        <input type="number" class="form-control" aria-label="Sizing example input" [value]="productInfo.productQuantity" aria-describedby="inputGroup-sizing-sm" disabled>
-      </div>
-    <div class="input-group input-group-sm mb-3">
-      <div class="input-group-prepend">
-        <button class="btn btn-outline-success" (click)="addToCart(productInfo)">Add to Cart</button>
-      </div>
-      <input type="number" class="form-control" [(ngModel)]="quantity" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
-      <div class="error" *ngIf="quantity <= 0">
-        <small id="quantityError" class="form-text text-danger">Quantity must be greater than 0</small>
-      </div>
-      <div class="error" *ngIf="quantity > productInfo.productQuantity">
-        <small id="quantityError" class="form-text text-danger">Quantity cannot exceed current stock</small>
-      </div>
-    </div>
-    <app-product-details [productInfo]="productInfo"></app-product-details>
+    <span class="h3 text-center font-weight-bold">${{ productInfo.productPrice }}</span>
   </div>
+
+  <div class="input-group input-group-sm mb-3 p-1">
+    <div class="input-group-prepend">
+      <span class="input-group-text" id="inputGroup-sizing-sm">Left in Stock</span>
+    </div>
+    <input type="number" class="form-control" [value]="productInfo.productQuantity" aria-describedby="inputGroup-sizing-sm" disabled>
+  </div>
+
+  <div class="input-group input-group-sm p-1">
+    <div class="input-group-prepend w-50">
+      <button id="add-to-cart" class="btn btn-success w-100" (click)="addToCart(productInfo)">Add to Cart</button>
+    </div>
+    <input type="number" class="form-control w-50" [(ngModel)]="quantity" min="1" max="50" [disabled]="productInfo.productQuantity == 0">
+  </div>
+
+  <ux-tip [errorMessage]="errorMessage" [successMessage]="successMessage" [error]="error" [success]="success"></ux-tip>
+</div>
 
   
