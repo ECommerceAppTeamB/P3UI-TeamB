@@ -8,21 +8,25 @@ import { ProductService } from 'src/app/services/product.service';
   templateUrl: './product-card.component.html',
   styleUrls: ['./product-card.component.css']
 })
-export class ProductCardComponent implements OnInit{
+export class ProductCardComponent implements OnInit {
 
   cartCount!: number;
   products: {
-    product: Product, //how many of each thing is in the cart
-    quantity: number //how many different things are in the cart
+    product: Product, //how many of each product is in the cart
+    quantity: number; //how many different products are in the cart
   }[] = [];
   subscription!: Subscription;
   totalPrice: number = 0;
-  quantity: number = 0; //the value the user enters in the quanitity selection box
+  quantity: number = 0; //the value the user enters in the quantity selection box
 
   @Input() productInfo!: Product;
+  errorMessage: string = '';
+  successMessage: string = '';
+  error = false;
+  success = false;
 
   constructor(private productService: ProductService) { }
-  
+
   ngOnInit(): void {
     this.subscription = this.productService.getCart().subscribe(
       (cart) => {
@@ -34,37 +38,49 @@ export class ProductCardComponent implements OnInit{
   }
 
   addToCart(product: Product): void {
-    //product is the item being clicked on
+    // product is the item being clicked on
     let inCart = false;
+
+    if (this.quantity <= 0) {
+      this.errorMessage = 'Quantity must be greater than 0';
+      this.error = true;
+      this.success = false;
+      setTimeout(() => {
+        this.error = false;
+        this.errorMessage = '';
+      }, 3000);
+      return;
+    }
 
     this.products.forEach(
       (element) => {
-        console.log(element.quantity);
-        if(element.product == product){
-          //if the users quantity is less than the items max quantity minus whats in the cart for that specific item, then do stuff below
-          if(this.quantity <= element.product.productQuantity - element.quantity && this.quantity > 0) {
+        if (element.product == product) {
+          //if the users quantity satisfies the items available quantity
+          if (this.quantity <= element.product.productQuantity - element.quantity && this.quantity > 0) {
             element.quantity += this.quantity;
-            // console.log("element.quantity: " + element.quantity);
-            // console.log("element.product.quantity: " + element.product.productQuantity);
-            // console.log("product.quantity: " + product.productQuantity);
             let cart = {
               cartCount: this.cartCount += this.quantity,
               products: this.products,
               totalPrice: this.totalPrice + (product.productPrice * this.quantity)
             };
             this.productService.setCart(cart);
-            inCart=true;
+            inCart = true;
+            this.error = false;
+            this.success = true;
+            this.successMessage = 'Added to Cart!';
+            setTimeout(() => {
+              this.success = false;
+              this.successMessage = '';
+            }, 3000);
             return;
           }
-          inCart=true;
-        };
+          inCart = true;
+        }
       }
     );
 
-    if(inCart == false){
-
-      if(this.quantity <= product.productQuantity && this.quantity > 0) {
-        console.log("hi im running");
+    if (inCart == false) {
+      if (this.quantity <= product.productQuantity && this.quantity > 0) {
         let newProduct = {
           product: product,
           quantity: this.quantity,
@@ -74,21 +90,20 @@ export class ProductCardComponent implements OnInit{
           cartCount: this.cartCount += this.quantity,
           products: this.products,
           totalPrice: this.totalPrice + (product.productPrice * this.quantity)
-        }
+        };
         this.productService.setCart(cart);
-        //product.productQuantity -= this.quantity;
-      }
-      else {
-        console.log("error");
-        //error message on the UI
-
+        this.error = false;
+        this.success = true;
+        this.successMessage = 'Added to Cart!';
+        setTimeout(() => {
+          this.success = false;
+          this.successMessage = '';
+        }, 3000);
       }
     }
-      
   }
 
   ngOnDestroy() {
     this.subscription.unsubscribe();
   }
-
 }
