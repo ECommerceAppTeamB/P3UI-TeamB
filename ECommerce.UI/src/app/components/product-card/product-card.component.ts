@@ -45,6 +45,17 @@ export class ProductCardComponent implements OnInit {
   addToCart(product: Product): void {
     let cartItem: { product: Product, quantity: number; } | undefined;
 
+    if (this.quantity <= 0) {
+      this.errorMessage = 'Quantity must be greater than 0';
+      this.error = true;
+      this.success = false;
+      setTimeout(() => {
+        this.error = false;
+        this.errorMessage = '';
+      }, 3000);
+      return;
+    }
+
     // Check if the item is already in the cart
     if (cartItem = this.products.find(item => item.product.productId === product.productId)) {
       // Make sure the quantity being added is valid
