@@ -1,9 +1,18 @@
-.table 
-{
+.table {
     margin: 3%;
 }
 
-.btn
-{
+
+
+.btn {
     margin-left: 2%;
+}
+
+button[disabled] {
+    cursor: not-allowed;
+}
+
+.alert {
+    font-weight: bold;
+    font-size: 1.2em;
 }

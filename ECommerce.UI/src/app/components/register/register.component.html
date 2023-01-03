@@ -1,41 +1,57 @@
 <button type="submit" class="btn btn-sm btn-outline-info m-2" [routerLink]="['/login']">
   ← Back to Login
 </button>
-<div class="container mx-auto mt-1">
+<div class="container-fluid m-2 d-flex flex-column align-items-center">
   <img src="../../../assets/images/rev-logo.png" alt="Revature logo" style="width: 20%; height: 20%;" />
-</div>
-<form class="ms-3" id="register-form" [formGroup]="registerForm" #registerFormElement="ngForm">
-  <div class="floating-form form-group">
-    <label for="inputFirstName">First Name</label>
-    <input type="text" class="form-control" formControlName="fname" id="inputFirstName" placeholder="Enter First Name"
-      [ngClass]="{ 'is-invalid': registerForm.get('fname')?.invalid && (registerForm.get('fname')?.dirty || registerFormElement.submitted) }">
-  </div>
-  <div class="form-group">
-    <label for="inputLastName">Last Name</label>
-    <input type="text" class="form-control" formControlName="lname" id="inputLastName" placeholder="Enter Last Name"
-      [ngClass]="{ 'is-invalid': registerForm.get('lname')?.invalid && (registerForm.get('lname')?.dirty || registerFormElement.submitted) }">
-  </div>
-  <div class="form-group">
-    <label for="register-email">Email address</label>
-    <input type="email" class="form-control" formControlName="email" id="register-email" aria-describedby="emailHelp" placeholder="Enter Email"
-      [ngClass]="{ 'is-invalid': registerForm.get('email')?.invalid && (registerForm.get('email')?.dirty || registerFormElement.submitted) }">
-    <!-- Email Validation -->
-    <div *ngIf="registerForm.get('email')?.invalid && registerForm.get('email')?.dirty">
-      <div class="error" *ngIf="registerForm.get('email')?.errors?.required">
-        <small id="emailHelp" class="form-text text-danger">Email is required
-        </small>
-      </div>
-      <div class="error" *ngIf="registerForm.get('email')?.errors?.email">
-        <small id="emailHelp" class="form-text text-danger">Invalid email address
-        </small>
+  <form class="mx-2" id="register-form" [formGroup]="registerForm" #registerFormElement="ngForm" (ngSubmit)="onSubmit()">
+    <ux-tip [errorMessage]="errorMessage" [successMessage]="successMessage" [error]="error" [success]="success"></ux-tip>
+
+    <div class="form-group">
+      <label for="inputFirstName">First Name</label>
+      <input type="text" class="form-control" formControlName="fname" id="inputFirstName" placeholder="Enter First Name"
+        [ngClass]="{ 'is-invalid': (registerForm.get('fname')?.invalid && (registerForm.get('fname')?.touched || registerFormElement.submitted)) }">
+    </div>
+    <div class="form-group">
+      <label for="inputLastName">Last Name</label>
+      <input type="text" class="form-control" formControlName="lname" id="inputLastName" placeholder="Enter Last Name"
+        [ngClass]="{ 'is-invalid': (registerForm.get('lname')?.invalid && (registerForm.get('lname')?.touched || registerFormElement.submitted)) }">
+    </div>
+
+    <div class="form-group">
+      <label for="register-email">Email address</label>
+      <input type="email" class="form-control" formControlName="email" id="register-email" aria-describedby="emailHelp" placeholder="Enter Email"
+        [ngClass]="{ 'is-invalid': (registerForm.get('email')?.invalid && (registerForm.get('email')?.touched || registerFormElement.submitted)) }">
+      <!-- Email Validation -->
+      <div *ngIf="fieldInvalid(registerForm.get('email')! || registerFormElement.submitted)">
+        <div class="error" *ngIf="registerForm.get('email')?.errors?.required">
+          <small id="emailHelp" class="form-text text-danger">Email is required
+          </small>
+        </div>
+        <div class="error" *ngIf="registerForm.get('email')?.errors?.email">
+          <small id="emailHelp" class="form-text text-danger">Invalid email address
+          </small>
+        </div>
       </div>
     </div>
-  </div>
-  <div class="form-group">
-    <label for="inputPassword">Password</label>
-    <input type="password" class="form-control" formControlName="password" id="inputPassword" placeholder="Enter Password"
-      [ngClass]="{ 'is-invalid': registerForm.get('password')?.invalid && (registerForm.get('password')?.dirty || registerFormElement.submitted) }">
-    <button class="btn btn-block btn-primary mt-3" (click)="onSubmit()">Register</button>
-  </div>
+    <div class="form-group">
+      <label for="inputPassword">Password</label>
+      <input type="password" class="form-control" formControlName="password" id="inputPassword" placeholder="Enter Password"
+        [ngClass]="{ 'is-invalid': (registerForm.get('password')?.invalid && (registerForm.get('password')?.touched || registerFormElement.submitted)) }">
+      <div *ngIf="fieldInvalid(registerForm.get('email')! || registerFormElement.submitted)">
 
-</form>
+        <div class="error" *ngIf="registerForm.get('password')?.errors?.required">
+          <small id="passwordHelp" class="form-text text-danger">Password is required
+          </small>
+        </div>
+
+        <div class="error" *ngIf="registerForm.get('password')?.errors?.minlength">
+          <small id="passwordHelp" class="form-text text-danger">Password must be at least 5 characters long
+          </small>
+        </div>
+      </div>
+
+      <button class="btn btn-block btn-primary mt-3" (click)="onSubmit()">Register</button>
+    </div>
+
+  </form>
+</div>
