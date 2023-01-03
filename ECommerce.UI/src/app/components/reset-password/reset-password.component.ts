@@ -12,6 +12,7 @@ export class ResetPasswordComponent implements OnInit {
     email: new UntypedFormControl(''),
     password: new UntypedFormControl('')
   });
+  formSuccess:boolean = false;
 
   constructor(private auth: AuthService) { }
 
@@ -21,7 +22,7 @@ export class ResetPasswordComponent implements OnInit {
   onSubmit(): void {
     this.auth.resetPassword(this.resetForm.get('email')?.value, this.resetForm.get('password')?.value).subscribe(
       () => {
-        console.log('password changed successfully');
+        this.formSuccess = true;
       },
       (err) => console.log(err)
     );
