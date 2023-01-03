@@ -1,3 +1,4 @@
 export const environment = {
-  production: true
+  production: true,
+  baseUrl: "https://tentacles-shopping-api.azurewebsites.net/"
 };
