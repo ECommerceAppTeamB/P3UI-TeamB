@@ -1,7 +1,7 @@
 <app-navbar></app-navbar>
 
-<div class="container mt-5 px-3">
-    <form id="register-form" [formGroup]="checkoutForm" #checkoutFormElement="ngForm">
+<div class="container-fluid mt-4 px-3">
+    <form class="m-4" id="register-form" [formGroup]="checkoutForm" #checkoutFormElement="ngForm">
         <!-- (ngSubmit)="onSubmit() -->
         <div class="mb-3">
             <h2>Confirm Your Order</h2>
@@ -113,8 +113,8 @@
 
 
                         <div class="mt-4 mb-4 d-flex justify-content-between">
-                            <button class="btn btn-info" [routerLink]="['/cart']">Back to Cart</button>
-                            <button class="btn btn-success px-3" (click)="onSubmit();">Pay ${{totalPrice}}</button>
+                            <button class="btn btn-info" [routerLink]="['/cart']">← Cart</button>
+                            <button class="btn btn-md btn-success px-3" (click)="onSubmit();">Finish and Pay ${{totalPrice}}</button>
                         </div>
                     </div>
                 </div>
