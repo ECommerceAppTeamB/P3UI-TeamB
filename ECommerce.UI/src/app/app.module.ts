@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { HttpClientModule } from '@angular/common/http';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -14,6 +13,10 @@ import { ProductCardComponent } from './components/product-card/product-card.com
 import { CartComponent } from './components/cart/cart.component';
 import { CheckoutComponent } from './components/checkout/checkout.component';
 import { DisplayProductsComponent } from './components/display-products/display-products.component';
+import { HttpClientModule } from '@angular/common/http';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ProductDetailsComponent } from './components/product-details/product-details.component';
+import { ModalModule } from 'ngx-bootstrap/modal';
 
 @NgModule({
   declarations: [
@@ -25,14 +28,16 @@ import { DisplayProductsComponent } from './components/display-products/display-
     ProductCardComponent,
     CartComponent,
     CheckoutComponent,
-    DisplayProductsComponent
+    DisplayProductsComponent,
+    ProductDetailsComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    ModalModule.forRoot(),
   ],
   providers: [LocalService],
   bootstrap: [AppComponent]
