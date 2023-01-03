@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, AbstractControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
+import { LocalService } from 'src/app/services/local.service';
 import { UxTipComponent } from '../uxtip/uxtip.component';
 import { tap } from 'rxjs/operators';
 import { User } from '../../models/user';
@@ -21,7 +22,7 @@ export class LoginComponent implements OnInit {
 	success = false;
 	currUser!: User;
 
-	constructor(private authService: AuthService, private router: Router, private fb: FormBuilder) { }
+	constructor(private localStore: LocalService, private authService: AuthService, private router: Router, private fb: FormBuilder) { }
 
 	ngOnInit() {
 		this.loginForm = this.fb.group({
