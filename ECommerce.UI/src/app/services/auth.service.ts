@@ -26,4 +26,9 @@ export class AuthService {
     const payload = {firstName: firstName, lastName: lastName, email: email, password: password};
     return this.http.post<any>(`${this.authUrl}/register`, payload, {headers: environment.headers});
   }
+
+  resetPassword(email: string, password: string): Observable<any> {
+    const payload = {email:email, password:password};
+    return this.http.patch<any>(`${this.authUrl}/reset-password`, payload, {headers: environment.headers, withCredentials: environment.withCredentials});
+  }
 }
