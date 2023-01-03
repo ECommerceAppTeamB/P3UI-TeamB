@@ -40,7 +40,7 @@ small {
     border-width: 2px;
 }
 
-.error {
+.sm-error, .error {
     color: red;
 }
 
