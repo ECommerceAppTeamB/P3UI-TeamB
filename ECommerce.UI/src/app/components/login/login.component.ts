@@ -5,6 +5,7 @@ import { AuthService } from 'src/app/services/auth.service';
 import { UxTipComponent } from '../uxtip/uxtip.component';
 import { tap } from 'rxjs/operators';
 import { User } from '../../models/user';
+import { LocalService } from 'src/app/services/local.service';
 
 @Component({
 	selector: 'app-login',
@@ -21,7 +22,12 @@ export class LoginComponent implements OnInit {
 	success = false;
 	currUser!: User;
 
-	constructor(private authService: AuthService, private router: Router, private fb: FormBuilder) { }
+	constructor(
+		private localStore: LocalService,
+		private authService: AuthService,
+		private router: Router,
+		private fb: FormBuilder
+	) {}
 
 	ngOnInit() {
 		this.loginForm = this.fb.group({
@@ -55,6 +61,7 @@ export class LoginComponent implements OnInit {
 				this.authService.loggedIn = true;
 				this.error = false;
 				this.success = true;
+				this.localStore.saveData('currUser', JSON.stringify(this.currUser));
 				setTimeout(() => {
 					this.router.navigate(['home']);
 				}, 2500);

@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
 import { UxTipComponent } from '../uxtip/uxtip.component';
 import { User } from '../../models/user';
+import { LocalService } from 'src/app/services/local.service';
 
 @Component({
   selector: 'app-register',
@@ -20,7 +21,12 @@ export class RegisterComponent implements OnInit {
   success = false;
   currUser!: User;
 
-  constructor(private authService: AuthService, private router: Router, private fb: FormBuilder) { }
+  constructor(
+    private localStore: LocalService,
+    private authService: AuthService,
+    private router: Router,
+    private fb: FormBuilder
+  ) { }
 
   ngOnInit() {
     this.registerForm = this.fb.group({
@@ -29,7 +35,6 @@ export class RegisterComponent implements OnInit {
       email: ['', [Validators.required, Validators.email], { updateOn: 'blur' }],
       password: ['', [Validators.required, Validators.minLength(5)], { updateOn: 'blur' }],
     });
-
   }
 
   fieldInvalid(formControl: AbstractControl) {
@@ -57,11 +62,11 @@ export class RegisterComponent implements OnInit {
         this.authService.loggedIn = true;
         this.error = false;
         this.success = true;
+        this.localStore.saveData('currUser', JSON.stringify(this.currUser));
         setTimeout(() => {
           this.router.navigate(['home']);
         }, 3000);
       },
-
     );
   }
 }

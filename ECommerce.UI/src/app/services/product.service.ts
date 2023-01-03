@@ -1,8 +1,10 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, Observable, of } from 'rxjs';
 import { Product } from '../models/product';
 import { environment } from 'src/environments/environment';
+import { LocalService } from 'src/app/services/local.service';
+import { map } from 'rxjs/operators';
 
 interface Cart {
   cartCount: number;
@@ -16,6 +18,7 @@ interface Cart {
 @Injectable({
   providedIn: 'root'
 })
+
 export class ProductService {
 
   private productUrl: string = "/api/product";
@@ -30,11 +33,12 @@ export class ProductService {
   private _cart$ = this._cart.asObservable();
 
   getCart(): Observable<Cart> {
-    return this._cart$;
+    return this._cart$.pipe(map(cart => cart));
   }
 
-  setCart(latestValue: Cart) {
-    return this._cart.next(latestValue);
+  setCart(cart: { cartCount: number, products: Array<{ product: Product, quantity: number; }>, totalPrice: number; }): void {
+    this._cart.next(cart);
+    this.localStore.saveData('cart', JSON.stringify(cart));
   }
 
   setCartCount(count: number): void {
@@ -50,7 +54,14 @@ export class ProductService {
     return this.cartCount;
   }
 
-  constructor(private http: HttpClient) { }
+  getCurrentCart(): Observable<Cart> {
+    return this._cart$.pipe(map(cart => cart));
+  }
+
+  constructor(private localStore: LocalService, private http: HttpClient) {
+    const currentCart = this.localStore.getCurrCart();
+    this._cart.next(currentCart);
+  }
 
   public getProducts(): Observable<Product[]> {
     return this.http.get<Product[]>(environment.baseUrl + this.productUrl, { headers: environment.headers, withCredentials: environment.withCredentials });
