@@ -35,7 +35,6 @@ export class RegisterComponent implements OnInit {
       email: ['', [Validators.required, Validators.email], { updateOn: 'blur' }],
       password: ['', [Validators.required, Validators.minLength(5)], { updateOn: 'blur' }],
     });
-
   }
 
   fieldInvalid(formControl: AbstractControl) {
@@ -68,7 +67,6 @@ export class RegisterComponent implements OnInit {
           this.router.navigate(['home']);
         }, 3000);
       },
-
     );
   }
 }

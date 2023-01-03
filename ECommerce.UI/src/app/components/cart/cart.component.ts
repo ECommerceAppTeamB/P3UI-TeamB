@@ -59,7 +59,7 @@ export class CartComponent implements OnInit {
   updateCart(product: Product, quantity: number): void {
     let item = this.products.find(element => element.product == product);
     item!.quantity = quantity;
-    this.recalculateTotalPrice();
+    this.updateQuantity(item!, quantity);
 
     if (quantity == 0) {
       this.products = this.products.filter(element => element.product != product);

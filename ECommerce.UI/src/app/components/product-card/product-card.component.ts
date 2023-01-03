@@ -43,49 +43,31 @@ export class ProductCardComponent implements OnInit {
   }
 
   addToCart(product: Product): void {
-    // product is the item being clicked on
-    let inCart = false;
+    let cartItem: { product: Product, quantity: number; } | undefined;
 
-    if (this.quantity <= 0) {
-      this.errorMessage = 'Quantity must be greater than 0';
-      this.error = true;
-      this.success = false;
-      setTimeout(() => {
+    // Check if the item is already in the cart
+    if (cartItem = this.products.find(item => item.product.productId === product.productId)) {
+      // Make sure the quantity being added is valid
+      if (this.quantity <= cartItem.product.productQuantity - cartItem.quantity && this.quantity > 0) {
+        cartItem.quantity += this.quantity;
+        this.cartCount += this.quantity;
+        this.totalPrice += product.productPrice * this.quantity;
+        this.productService.setCart({
+          cartCount: this.cartCount,
+          products: this.products,
+          totalPrice: this.totalPrice
+        });
+        product.productQuantity -= this.quantity;
         this.error = false;
-        this.errorMessage = '';
-      }, 3000);
-      return;
-    }
-
-    this.products.forEach(
-      (element) => {
-        if (element.product == product) {
-          //if the users quantity satisfies the items available quantity
-          if (this.quantity <= element.product.productQuantity - element.quantity && this.quantity > 0) {
-            element.quantity += this.quantity;
-            this.cartCount += this.quantity;
-            this.totalPrice += product.productPrice * this.quantity;
-            this.productService.setCart({
-              cartCount: this.cartCount,
-              products: this.products,
-              totalPrice: this.totalPrice
-            });
-            inCart = true;
-            this.error = false;
-            this.success = true;
-            this.successMessage = 'Added to Cart!';
-            setTimeout(() => {
-              this.success = false;
-              this.successMessage = '';
-            }, 3000);
-            return;
-          }
-          inCart = true;
-        }
+        this.success = true;
+        this.successMessage = 'Added to Cart!';
+        setTimeout(() => {
+          this.success = false;
+          this.successMessage = '';
+        }, 3000);
       }
-    );
-
-    if (inCart == false) {
+    } else {
+      // If the item is not in the cart, add it as a new entry
       if (this.quantity <= product.productQuantity && this.quantity > 0) {
         let newProduct = {
           product: product,
@@ -99,6 +81,7 @@ export class ProductCardComponent implements OnInit {
           products: this.products,
           totalPrice: this.totalPrice
         });
+        product.productQuantity -= this.quantity;
         this.error = false;
         this.success = true;
         this.successMessage = 'Added to Cart!';

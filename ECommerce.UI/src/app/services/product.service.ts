@@ -18,6 +18,7 @@ interface Cart {
 @Injectable({
   providedIn: 'root'
 })
+
 export class ProductService {
 
   private productUrl: string = "/api/product";
@@ -34,11 +35,6 @@ export class ProductService {
   getCart(): Observable<Cart> {
     return this._cart$.pipe(map(cart => cart));
   }
-
-  // getCart(): Observable<Cart> {
-  //   let cart = this.localStore.getData('cart');
-  //   return (cart) ? of(JSON.parse(cart)) : of({ cartCount: 0, products: [], totalPrice: 0 });
-  // }
 
   setCart(cart: { cartCount: number, products: Array<{ product: Product, quantity: number; }>, totalPrice: number; }): void {
     this._cart.next(cart);
@@ -62,7 +58,10 @@ export class ProductService {
     return this._cart$.pipe(map(cart => cart));
   }
 
-  constructor(private localStore: LocalService, private http: HttpClient) { }
+  constructor(private localStore: LocalService, private http: HttpClient) {
+    const currentCart = this.localStore.getCurrCart();
+    this._cart.next(currentCart);
+  }
 
   public getProducts(): Observable<Product[]> {
     return this.http.get<Product[]>(environment.baseUrl + this.productUrl, { headers: environment.headers, withCredentials: environment.withCredentials });

@@ -77,10 +77,8 @@ export class CheckoutComponent implements OnInit {
           this.router.navigate(['/home']);
         }
       );
-
     } else {
-      this.router.navigate(['/home']);
+      alert('Error submitting order.');
     }
   }
-
 }
