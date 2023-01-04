@@ -2,7 +2,7 @@
 
 <div class="container-fluid mt-4 px-3">
     <form class="m-4" id="register-form" [formGroup]="checkoutForm" #checkoutFormElement="ngForm">
-        <!-- (ngSubmit)="onSubmit() -->
+        (ngSubmit)="onSubmit()
         <div class="mb-3">
             <h2>Confirm Your Order</h2>
             <span>Enter details below to confirm your order:</span>
@@ -10,15 +10,14 @@
         <div class="row">
             <div class="col-md-8">
                 <div class="card p-3">
-
-                    <h6 class="text-uppercase">Payment details</h6>
-                    <div class="inputbox mt-3"> <input type="text" name="name" class="form-control" id="checkout-ctrl" formControlName="cardName"
-                            required="required">
+                    <h5 class="text-uppercase">Payment details</h5>
+                    <div class="inputbox mt-3">
+                        <input type="text" name="name" class="form-control" id="checkout-ctrl" formControlName="cardName" required="required"
+                            [ngClass]="{ 'invalid': checkoutForm.hasError && checkoutFormElement.submitted }">
                         <span>Name on card</span>
                     </div>
 
                     <div class="row">
-
                         <div class="col-md-6">
                             <div class="inputbox mt-3 mr-2">
                                 <input type="number" name="name" class="form-control" id="checkout-ctrl" formControlName="cardNum" required="required"
@@ -62,35 +61,30 @@
                         </div>
 
                         <div class="mt-4 mb-4">
-
-                            <h6 class="text-uppercase">Billing Address</h6>
+                            <h5 class="text-uppercase">Shipping / Billing Address</h5>
                             <div class="row mt-3">
 
                                 <div class="col-md-6">
 
-                                    <div class="inputbox mt-3 mr-2"> <input type="text" name="name" class="form-control" id="checkout-ctrl"
-                                            required="required">
+                                    <div class="inputbox mt-3 mr-4"> <input type="text" name="name" class="form-control" id="checkout-ctrl"
+                                            [ngClass]="{ 'invalid': checkoutForm.hasError && checkoutFormElement.submitted }" required="required">
                                         <span>Street Address</span>
                                     </div>
-
                                 </div>
 
 
                                 <div class="col-md-6">
-
-                                    <div class="inputbox mt-3 mr-2"> <input type="text" name="name" class="form-control" id="checkout-ctrl"
-                                            required="required">
+                                    <div class="inputbox mt-3 mr-3"> <input type="text" name="name" class="form-control" id="checkout-ctrl"
+                                            [ngClass]="{ 'invalid': checkoutForm.hasError && checkoutFormElement.submitted }" required="required">
                                         <span>City</span>
                                     </div>
-
                                 </div>
                             </div>
 
                             <div class="row mt-2">
-
                                 <div class="col-md-6">
                                     <div class="inputbox mt-3 mr-2"> <input type="text" name="name" class="form-control" id="checkout-ctrl"
-                                            required="required">
+                                            [ngClass]="{ 'invalid': checkoutForm.hasError && checkoutFormElement.submitted }" required="required">
                                         <span>State</span>
                                     </div>
                                 </div>
@@ -114,24 +108,32 @@
                         </div>
 
                         <div class="mt-4 mb-4 d-flex justify-content-between">
-                            <button class="btn btn-info" [routerLink]="['/cart']">← Cart</button>
-                            <button class="btn btn-md btn-success px-3" (click)="onSubmit();">Finish and Pay ${{totalPrice.toFixed(2)}}</button>
+                            <button class="btn btn-outline-info" [routerLink]="['/cart']">← Cart</button>
+                            <button class="btn btn-md btn-success px-3" (click)="onSubmit();">Confirm Order</button>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <div class="col-md-4 right-card">
-                <div class="card card-blue text-center p-3 text-white mb-3">
-
-                    <span class="text-bold">Order Total</span>
-                    <div class="d-flex flex-row justify-content-center mb-3">
-                        <h1 class="mt-3 yellow">${{totalPrice.toFixed(2)}}
-                        </h1>
+            <div class="col-md-4 right-col p-2">
+                <div class="card total-card text-center p-1 text-white">
+                    <div class="card-title">
+                        <span class="lead">Your Total:</span>
+                        <div class="d-flex flex-row justify-content-center mb-1">
+                            <h2 class="my-1 p-1 yellow">${{totalPrice.toFixed(2)}}</h2>
+                        </div>
                     </div>
 
-                    <div class="highlight mt-0">
-                        <span>100% Satisfaction Guarantee!</span>
+                    <div class="card-body p-1">
+                        <div id="breakdown">
+                            <ng-container *ngFor="let product of finalProducts">
+                                <div class="row p-1 text-center border-top">
+                                    <div class="col-1">{{ product.quantity }}</div>
+                                    <div class="col-8">{{ product.name }}</div>
+                                    <div class="col-3 text-right">${{ product.price }}</div>
+                                </div>
+                            </ng-container>
+                        </div>
                     </div>
                 </div>
             </div>

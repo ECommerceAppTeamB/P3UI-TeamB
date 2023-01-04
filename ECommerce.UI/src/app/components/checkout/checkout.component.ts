@@ -2,10 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Product } from 'src/app/models/product';
+import { User } from '../../models/user';
 import { ProductService } from 'src/app/services/product.service';
 import { ValidateService } from 'src/app/services/validate.service';
-import { User } from '../../models/user';
 import { LocalService } from 'src/app/services/local.service';
+// import {OrderConfirmation} from 'src/app/components/order-confirmation/order-confirmation.component';
 
 @Component({
   selector: 'app-checkout',
@@ -15,14 +16,11 @@ import { LocalService } from 'src/app/services/local.service';
 })
 
 export class CheckoutComponent implements OnInit {
-  currUser!: User;
-
   checkoutForm: FormGroup = this.fb.group({});
-
+  currUser!: User;
   products: { product: Product, quantity: number; }[] = [];
   totalPrice!: number;
-  cartProducts: Product[] = [];
-  finalProducts: { id: number, quantity: number; }[] = [];
+  finalProducts: { id: number, name: string, quantity: number, price: number; }[] = [];
 
   constructor(private localStore: LocalService,
     private productService: ProductService,
@@ -46,25 +44,25 @@ export class CheckoutComponent implements OnInit {
     this.productService.getCart().subscribe(
       (cart) => {
         this.products = cart.products;
-        this.products.forEach(
-          (element) => this.cartProducts.push(element.product)
-        );
         this.totalPrice = cart.totalPrice;
+
+        this.products.forEach(
+          (element) => {
+            const id = element.product.productId;
+            const name = element.product.productName;
+            const quantity = element.quantity;
+            const price = element.product.productPrice;
+            this.finalProducts.push({ id, name, quantity, price });
+          }
+        );
       }
     );
   }
 
   onSubmit(): void {
-    this.products.forEach(
-      (element) => {
-        const id = element.product.productId;
-        const quantity = element.quantity;
-        this.finalProducts.push({ id, quantity });
-      }
-    );
-
     if (this.finalProducts.length > 0) {
-      this.productService.purchase(this.finalProducts).subscribe(
+      const productsToSend = this.finalProducts.map(product => ({ id: product.id, quantity: product.quantity }));
+      this.productService.purchase(productsToSend).subscribe(
         (resp) => console.log(resp),
         (err) => console.log(err),
         () => {

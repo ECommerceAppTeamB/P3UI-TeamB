@@ -1,0 +1,11 @@
+.card-img-top {
+    max-width: 330px;
+    max-height: 330px;
+    width: auto;
+    height: auto;
+    margin: 0 auto;
+}
+
+.card-body {
+    padding: 15px;
+}
