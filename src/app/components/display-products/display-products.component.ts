@@ -21,4 +21,5 @@ export class DisplayProductsComponent implements OnInit {
     );
   }
 
+
 }

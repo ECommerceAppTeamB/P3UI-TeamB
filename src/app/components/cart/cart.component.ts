@@ -8,11 +8,11 @@ import { ProductService } from 'src/app/services/product.service';
   templateUrl: './cart.component.html',
   styleUrls: ['./cart.component.css']
 })
-export class CartComponent implements OnInit {
 
+export class CartComponent implements OnInit {
   products: {
     product: Product,
-    quantity: number
+    quantity: number;
   }[] = [];
   totalPrice!: number;
 
@@ -33,43 +33,47 @@ export class CartComponent implements OnInit {
   }
 
   emptyCart(): void {
-    let cart = {
+    this.products = [];
+    this.totalPrice = 0;
+    this.productService.setCart({
       cartCount: 0,
-      products: [],
-      totalPrice: 0.00
-    };
-    this.productService.setCart(cart);
-    this.router.navigate(['/home']);
+      products: this.products,
+      totalPrice: this.totalPrice
+    });
   }
 
-  removeItem(product: Product, quantity: number): void {
-    
-    if(product.productPrice*quantity <= 0){
-      this.totalPrice = 0;
-    }else{
-    this.totalPrice -= (product.productPrice * quantity);
-    }
-    if(this.totalPrice < 0){
-      this.totalPrice =0;
-    }
+  updateQuantity(product: { product: Product, quantity: number; }, quantity: number): void {
+    product.quantity = quantity;
+    this.recalculateTotalPrice();
+  }
 
+  recalculateTotalPrice(): void {
+    this.totalPrice = 0;
     this.products.forEach(
-      (element) => {
-        if(element.product == product){
-            this.products.pop();
-        }});
-
-        let cart = {
-          cartCount: this.products.length,
-          products: this.products,
-          totalPrice: this.totalPrice
-        };
-        this.productService.setCart(cart);
-
-
-
-    
-
+      (product) => {
+        this.totalPrice += product.product.productPrice * product.quantity;
+      }
+    );
   }
 
+  updateCart(product: Product, quantity: number): void {
+    let item = this.products.find(element => element.product == product);
+    item!.quantity = quantity;
+    this.updateQuantity(item!, quantity);
+
+    if (quantity == 0) {
+      this.products = this.products.filter(element => element.product != product);
+    }
+
+    let cartCount = 0;
+    this.products.forEach((product) => {
+      cartCount += product.quantity;
+    });
+
+    this.productService.setCart({
+      cartCount: cartCount,
+      products: this.products,
+      totalPrice: this.totalPrice
+    });
+  }
 }
