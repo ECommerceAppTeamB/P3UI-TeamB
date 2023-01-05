@@ -64,7 +64,8 @@ export class CheckoutComponent implements OnInit, AfterViewInit {
           }
         );
         this.totalPrice = cart.totalPrice;
-        this.listProducts = this.cartProducts.map(product => ({ quantity: product.quantity, name: product.productName, price: product.productPrice }));
+        //! Get cart quantity NOT available quantity
+        this.listProducts = this.products.map(product => ({ quantity: product.quantity, name: product.product.productName, price: product.product.productPrice }));
       }
     );
   }

@@ -1,0 +1,7 @@
+.navbar {
+    border-bottom: 1px solid #ece9e9;
+}
+
+h4:hover {
+    cursor: pointer;
+}

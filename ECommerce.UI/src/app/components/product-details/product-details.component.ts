@@ -6,8 +6,8 @@ import { BsModalService, BsModalRef, ModalOptions } from 'ngx-bootstrap/modal';
   selector: 'app-product-details',
   templateUrl: './product-details.component.html',
   styleUrls: ['./product-details.component.css'],
-
 })
+
 export class ProductDetailsComponent implements OnInit {
 
   modalRef?: BsModalRef;

@@ -117,12 +117,10 @@
 
 
                         <div class="mt-4 mb-4 d-flex justify-content-between">
-                            <<<<<<< HEAD <button class="btn btn-outline-info" [routerLink]="['/cart']">← Cart</button>
-                                <button class="btn btn-md btn-success px-3" (click)="onSubmit();">Confirm Order</button>
-                                =======
-                                <button class="btn btn-info" [routerLink]="['/cart']">← Cart</button>
-                                <button class="btn btn-md btn-success px-3" (click)="onSubmit();">Finish and Pay ${{totalPrice}}</button>
-                                >>>>>>> 649eefd (Add OrderConfirm page)
+                            <button class="btn btn-outline-info" [routerLink]="['/cart']">← Cart</button>
+                            <button class="btn btn-md btn-success px-3" (click)="onSubmit();">Confirm Order</button>
+                            <!-- !REMOVE -->
+                            <button class="btn btn-outline-warning" [routerLink]="['/confirmation']">Confirmation</button>
                         </div>
                     </div>
                 </div>
@@ -130,30 +128,25 @@
 
             <div class="col-md-4 right-card">
                 <div class="card card-blue text-center p-3 text-white mb-3">
-
                     <span>Order Total</span>
                     <div class="d-flex flex-row justify-content-center mb-3">
                         <h1 class="mb-0 yellow">${{totalPrice}}</h1>
                     </div>
 
-                    <<<<<<< HEAD <div class="card-body p-1">
+                    <div class="card-body p-1">
                         <div id="breakdown">
-                            <ng-container *ngFor="let product of finalProducts">
+                            <ng-container *ngFor="let product of listProducts">
                                 <div class="row p-1 text-center border-top">
                                     <div class="col-1">{{ product.quantity }}</div>
-                                    <div class="col-8">{{ product.name }}</div>
-                                    <div class="col-3 text-right">${{ product.price }}</div>
+                                    <div class="col-7 font-weight-bold">{{ product.name }}</div>
+                                    <div class="col-4 text-right">${{ product.price }}</div>
                                 </div>
                             </ng-container>
                         </div>
-                        =======
-                        <div class="highlight">
-                            <span>100% Satisfaction Guarantee!</span>
-                            >>>>>>> 649eefd (Add OrderConfirm page)
-                        </div>
+                    </div>
+
                 </div>
             </div>
-
         </div>
     </form>
 </div>

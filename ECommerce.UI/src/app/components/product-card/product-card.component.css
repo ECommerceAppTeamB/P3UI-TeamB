@@ -18,6 +18,9 @@ div {
   transition: .2s ease-out;
 }
 
+small {
+  font-style: italic;
+}
 
 .card:hover {
   box-shadow: 0 5px 10px rgba(0, 0, 0, .2);

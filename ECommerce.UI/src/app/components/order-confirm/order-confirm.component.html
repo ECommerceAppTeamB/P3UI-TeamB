@@ -1,24 +1,39 @@
-<app-navbar></app-navbar>
-
+<nav class="navbar navbar-light bg-light">
+    <h4 [routerLink]="['/home']">
+        <img src="../../../assets/images/favicon.png" width="8%" height="8%" alt="Revature">
+        Tentacles Swag Shop
+    </h4>
+    <form class="form-inline">
+        <button type="button" class="btn btn-primary" (click)="redirectToHome()">Home</button>
+    </form>
+</nav>
 <div class="container-fluid">
-    <div class="card bg-success text-center text-white mx-5 my-4 p-3">
-        <div class="card-header">
-            <h4 class="bg-transparent">Order Confirmation:</h4>
+    <div class="card bg-light border-success border-2 mx-auto my-3 p-4">
+        <div class="card-header border-success border-bottom-2 text-center">
+            <h4 class="header">Confirmation Number: #38023</h4>
         </div>
-        <div class="card-body">
 
-            <div class="d-flex flex-column">
-                <div class="">Order Number: 38023</div>
-                <div class="">{{ currUser.firstName }} {{ currUser.lastName }}</div>
-                <div class="">{{ formValues.address }}</div>
-                <div class="">{{ formValues.city }} {{ formValues.state }} {{ formValues.zipCode }}</div>
-                <div class="">Order Total: {{ totalPrice }}</div>
-                <div class="">{{ currUser.email }}</div>
-            </div>
+        <div class="lead total text-center">Order Total: $392.33</div>
+        <div class="card-body p-2 mx-auto">
+            <div class="lead font-weight-bold">Customer Contact: </div>
+            <div class="lead">Brianna Renni</div>
+            <div class="lead">brianna@gmail.com</div>
+            <div class="lead font-weight-bold">Shipping Address: </div>
+            <div class="lead">123 Fuck it St</div>
+            <div class="lead">Los Angeles CA 91605</div>
 
-            <div class="card-footer">
-                <button type="button" class="btn btn-primary" (click)="redirectToHome()">Done</button>
-            </div>
+            <!-- interpolate -->
         </div>
+        <button type="button" class="btn btn-block mx-auto btn-success mt-2 px-3" (click)="redirectToHome()">Close</button>
+
     </div>
 </div>
+
+<!-- <div class="lead total text-center">Order Total: ${{ totalPrice }}</div> -->
+
+<!-- <div class="lead font-weight-bold">Customer Contact: </div> -->
+<!-- <div class="lead">{{ currUser.firstName }} {{ currUser.lastName }}</div> -->
+<!-- <div class="lead">{{ formValues.address }}</div> -->
+<!-- <div class="lead font-weight-bold">Shipping Address: </div>
+            <div class="lead">{{ formValues.address }}</div>
+            <div class="lead">{{ formValues.city }} {{ formValues.state }} {{ formValues.zipCode }}</div> -->
