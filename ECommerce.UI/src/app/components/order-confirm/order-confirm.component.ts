@@ -1,7 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+import { Router } from '@angular/router';
 import { User } from '../../models/user';
-import { ProductService } from 'src/app/services/product.service';
-import { LocalService } from 'src/app/services/local.service';
 
 @Component({
   selector: 'app-order-confirm',
@@ -9,10 +8,24 @@ import { LocalService } from 'src/app/services/local.service';
   styleUrls: ['./order-confirm.component.css']
 })
 export class OrderConfirmComponent implements OnInit {
-  currUser!: User;
-  totalPrice!: number;
+  @Input() currUser!: User;
+  @Input() totalPrice!: number;
+  @Input() formValues!: {
+    cardName: string;
+    cardNum: string;
+    expDate: string;
+    cvv: string;
+    address: string;
+    city: string;
+    state: string;
+    zipCode: string;
+  };
 
-  constructor(private localStore: LocalService, private productService: ProductService) {}
+  constructor(private router: Router) { }
+
+  redirectToHome() {
+    this.router.navigate(['home']);
+  }
 
   ngOnInit() {
   }

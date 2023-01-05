@@ -2,7 +2,6 @@
 
 <div class="container-fluid mt-4 px-3">
     <form class="m-4" id="register-form" [formGroup]="checkoutForm" #checkoutFormElement="ngForm">
-        (ngSubmit)="onSubmit()
         <div class="mb-3">
             <h2>Confirm Your Order</h2>
             <span>Enter details below to confirm your order:</span>
@@ -10,22 +9,24 @@
         <div class="row">
             <div class="col-md-8">
                 <div class="card p-3">
-                    <h5 class="text-uppercase">Payment details</h5>
+
+                    <h6 class="text-uppercase">Payment details</h6>
                     <div class="inputbox mt-3">
                         <input type="text" name="name" class="form-control" id="checkout-ctrl" formControlName="cardName" required="required"
-                            [ngClass]="{ 'invalid': checkoutForm.hasError && checkoutFormElement.submitted }">
+                            [ngClass]="{'invalid': checkoutFormElement.submitted && checkoutForm.controls['cardName'].invalid}">
                         <span>Name on card</span>
                     </div>
 
                     <div class="row">
+
                         <div class="col-md-6">
                             <div class="inputbox mt-3 mr-2">
-                                <input type="number" name="name" class="form-control" id="checkout-ctrl" formControlName="cardNum" required="required"
-                                    [ngClass]="{ 'invalid': checkoutForm.get('cardNum')?.invalid && (checkoutForm.get('cardNum')?.touched || checkoutFormElement.submitted )}">
+                                <input type="number" name="name" class="form-control" id="checkout-ctrl" formControlName="cardNum" required
+                                    [ngClass]="{'invalid': (checkoutFormElement.submitted && !checkoutForm.controls['cardNum'].value) || (checkoutForm.get('cardNum')!.touched && checkoutForm.controls['cardNum'].invalid)}">
+
                                 <i class="fa fa-credit-card"></i> <span>Card Number</span>
                             </div>
-                            <div class="align-end"
-                                *ngIf="checkoutForm.get('cardNum')?.hasError('minLength') && (checkoutForm.get('cardNum')?.touched  || checkoutFormElement.submitted )">
+                            <div class="align-end" *ngIf="checkoutForm.get('cardNum')?.hasError('minLength') && checkoutForm.get('cardNum')?.touched">
                                 <span class="error">
                                     <small id="cardNumHelp" class="form-text text-danger">Invalid Card Number</small>
                                 </span>
@@ -37,21 +38,21 @@
                                 <div class="inputbox mt-3 mr-2">
                                     <input type="text" name="name" class="form-control" id="checkout-ctrl" formControlName="expDate"
                                         required="required" maxlength="5"
-                                        [ngClass]="{ 'invalid': checkoutForm.get('expDate')?.invalid && ((checkoutForm.get('expDate')?.touched) || checkoutFormElement.submitted )}">
+                                        [ngClass]="{'invalid': (checkoutFormElement.submitted && !checkoutForm.controls['expDate'].value) || (checkoutForm.get('expDate')!.touched && checkoutForm.controls['expDate'].invalid)}">
                                     <span>Expiration</span>
                                 </div>
 
                                 <div class="inputbox mt-3 mr-2">
                                     <input type="input" name="name" class="form-control" id="checkout-ctrl" formControlName="cvv" required="required"
                                         maxlength="3"
-                                        [ngClass]="{ 'invalid': checkoutForm.get('cvv')?.invalid && ((checkoutForm.get('cvv')?.touched)  || checkoutFormElement.submitted ) }">
+                                        [ngClass]="{'invalid': (checkoutFormElement.submitted && !checkoutForm.controls['cvv'].value) || (checkoutForm.get('cvv')!.touched && checkoutForm.controls['cvv'].invalid)}">
                                     <span>CVV</span>
                                 </div>
                             </div>
 
                             <div class="d-flex flex-row justify-content-between align-items-baseline">
                                 <span class="error"
-                                    *ngIf="checkoutForm.get('expDate')?.hasError('invalidFormat') && (checkoutForm.get('expDate')?.touched  || checkoutFormElement.submitted )">
+                                    *ngIf="checkoutForm.get('expDate')?.hasError('invalidFormat') && checkoutForm.get('expDate')?.touched">
                                     <small id="expDateHelp" class="form-text text-danger">Invalid Exp. Date</small>
                                 </span>
                                 <span class="error" *ngIf="checkoutForm.get('cvv')?.hasError('minLength') && checkoutForm.get('cvv')?.touched">
@@ -61,30 +62,38 @@
                         </div>
 
                         <div class="mt-4 mb-4">
-                            <h5 class="text-uppercase">Shipping / Billing Address</h5>
+
+                            <h6 class="text-uppercase">Billing Address</h6>
                             <div class="row mt-3">
 
                                 <div class="col-md-6">
 
-                                    <div class="inputbox mt-3 mr-4"> <input type="text" name="name" class="form-control" id="checkout-ctrl"
-                                            [ngClass]="{ 'invalid': checkoutForm.hasError && checkoutFormElement.submitted }" required="required">
+                                    <div class="inputbox mt-3 mr-2"> <input type="text" name="name" class="form-control" id="checkout-ctrl"
+                                            required="required"
+                                            [ngClass]="{'invalid': checkoutFormElement.submitted && checkoutForm.controls['cardName'].invalid}">
                                         <span>Street Address</span>
                                     </div>
+
                                 </div>
 
 
                                 <div class="col-md-6">
-                                    <div class="inputbox mt-3 mr-3"> <input type="text" name="name" class="form-control" id="checkout-ctrl"
-                                            [ngClass]="{ 'invalid': checkoutForm.hasError && checkoutFormElement.submitted }" required="required">
+
+                                    <div class="inputbox mt-3 mr-2"> <input type="text" name="name" class="form-control" id="checkout-ctrl"
+                                            required="required"
+                                            [ngClass]="{'invalid': checkoutFormElement.submitted && checkoutForm.controls['cardName'].invalid}">
                                         <span>City</span>
                                     </div>
+
                                 </div>
                             </div>
 
                             <div class="row mt-2">
+
                                 <div class="col-md-6">
                                     <div class="inputbox mt-3 mr-2"> <input type="text" name="name" class="form-control" id="checkout-ctrl"
-                                            [ngClass]="{ 'invalid': checkoutForm.hasError && checkoutFormElement.submitted }" required="required">
+                                            required="required"
+                                            [ngClass]="{'invalid': checkoutFormElement.submitted && checkoutForm.controls['cardName'].invalid}">
                                         <span>State</span>
                                     </div>
                                 </div>
@@ -93,12 +102,11 @@
                                     <div class="inputbox mt-3 mr-2">
                                         <input type="text" name="name" class="form-control" id="checkout-ctrl" formControlName="zipCode"
                                             required="required"
-                                            [ngClass]="{ 'invalid': checkoutForm.get('zipCode')?.invalid && ((checkoutForm.get('zipCode')?.touched)  || checkoutFormElement.submitted )}">
+                                            [ngClass]="{'invalid': checkoutFormElement.submitted && checkoutForm.controls['cardName'].invalid}">
                                         <span>Zip code</span>
                                     </div>
 
-                                    <div
-                                        *ngIf="checkoutForm.get('zipCode')?.hasError('minLength') && (checkoutForm.get('zipCode')?.touched  || checkoutFormElement.submitted )">
+                                    <div *ngIf="checkoutForm.get('zipCode')?.hasError('minLength') && checkoutForm.get('zipCode')?.touched">
                                         <span class="error">
                                             <small id="zipCodeHelp" class="form-text text-danger">Invalid Zip Code</small>
                                         </span>
@@ -107,24 +115,28 @@
                             </div>
                         </div>
 
+
                         <div class="mt-4 mb-4 d-flex justify-content-between">
-                            <button class="btn btn-outline-info" [routerLink]="['/cart']">← Cart</button>
-                            <button class="btn btn-md btn-success px-3" (click)="onSubmit();">Confirm Order</button>
+                            <<<<<<< HEAD <button class="btn btn-outline-info" [routerLink]="['/cart']">← Cart</button>
+                                <button class="btn btn-md btn-success px-3" (click)="onSubmit();">Confirm Order</button>
+                                =======
+                                <button class="btn btn-info" [routerLink]="['/cart']">← Cart</button>
+                                <button class="btn btn-md btn-success px-3" (click)="onSubmit();">Finish and Pay ${{totalPrice}}</button>
+                                >>>>>>> 649eefd (Add OrderConfirm page)
                         </div>
                     </div>
                 </div>
             </div>
 
-            <div class="col-md-4 right-col p-2">
-                <div class="card total-card text-center p-1 text-white">
-                    <div class="card-title">
-                        <span class="lead">Your Total:</span>
-                        <div class="d-flex flex-row justify-content-center mb-1">
-                            <h2 class="my-1 p-1 yellow">${{totalPrice.toFixed(2)}}</h2>
-                        </div>
+            <div class="col-md-4 right-card">
+                <div class="card card-blue text-center p-3 text-white mb-3">
+
+                    <span>Order Total</span>
+                    <div class="d-flex flex-row justify-content-center mb-3">
+                        <h1 class="mb-0 yellow">${{totalPrice}}</h1>
                     </div>
 
-                    <div class="card-body p-1">
+                    <<<<<<< HEAD <div class="card-body p-1">
                         <div id="breakdown">
                             <ng-container *ngFor="let product of finalProducts">
                                 <div class="row p-1 text-center border-top">
@@ -134,7 +146,11 @@
                                 </div>
                             </ng-container>
                         </div>
-                    </div>
+                        =======
+                        <div class="highlight">
+                            <span>100% Satisfaction Guarantee!</span>
+                            >>>>>>> 649eefd (Add OrderConfirm page)
+                        </div>
                 </div>
             </div>
 

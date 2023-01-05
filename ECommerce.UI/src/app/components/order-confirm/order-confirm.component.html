@@ -1,0 +1,24 @@
+<app-navbar></app-navbar>
+
+<div class="container-fluid">
+    <div class="card bg-success text-center text-white mx-5 my-4 p-3">
+        <div class="card-header">
+            <h4 class="bg-transparent">Order Confirmation:</h4>
+        </div>
+        <div class="card-body">
+
+            <div class="d-flex flex-column">
+                <div class="">Order Number: 38023</div>
+                <div class="">{{ currUser.firstName }} {{ currUser.lastName }}</div>
+                <div class="">{{ formValues.address }}</div>
+                <div class="">{{ formValues.city }} {{ formValues.state }} {{ formValues.zipCode }}</div>
+                <div class="">Order Total: {{ totalPrice }}</div>
+                <div class="">{{ currUser.email }}</div>
+            </div>
+
+            <div class="card-footer">
+                <button type="button" class="btn btn-primary" (click)="redirectToHome()">Done</button>
+            </div>
+        </div>
+    </div>
+</div>

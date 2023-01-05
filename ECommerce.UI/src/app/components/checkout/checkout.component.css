@@ -18,18 +18,6 @@ body {
     border: none;
 }
 
-#breakdown {
-    width: 100%;
-    font-size: 19px;
-    background-color: #F26925;
-    color: white;
-    margin-top: -5px;
-}
-
-.col-8 {
-    font-weight: bold;
-}
-
 .form-control {
     border-bottom: 2px solid #eee !important;
     border: none;
@@ -73,11 +61,6 @@ span {
     font-size: 21px;
 }
 
-.lead {
-    font-weight: bold;
-    font-size: 1.2rem;
-}
-
 .inputbox {
     position: relative;
     margin-bottom: 20px;
@@ -115,11 +98,13 @@ input::-webkit-inner-spin-button {
     font-size: 12px
 }
 
-.total-card {
+.card-blue {
+
     background-color: #F26925;
 }
 
 .highlight {
+
     background-color: #F26925;
     padding: 10px;
     border-radius: 10px;
@@ -128,13 +113,17 @@ input::-webkit-inner-spin-button {
 }
 
 .yellow {
+
     color: #fdcc49;
 }
 
 .decoration {
+
     text-decoration: none;
     font-size: 14px;
 }
+
+
 
 .decoration:hover {
     text-decoration: none;

@@ -1,32 +1,44 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Component, OnInit, AfterViewInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Product } from 'src/app/models/product';
 import { User } from '../../models/user';
 import { ProductService } from 'src/app/services/product.service';
 import { ValidateService } from 'src/app/services/validate.service';
 import { LocalService } from 'src/app/services/local.service';
-// import {OrderConfirmation} from 'src/app/components/order-confirmation/order-confirmation.component';
+import { OrderConfirmComponent } from 'src/app/components/order-confirm/order-confirm.component';
 
 @Component({
   selector: 'app-checkout',
   templateUrl: './checkout.component.html',
   styleUrls: ['./checkout.component.css'],
-  providers: [ValidateService]
+  providers: [ValidateService, OrderConfirmComponent]
 })
 
-export class CheckoutComponent implements OnInit {
+export class CheckoutComponent implements OnInit, AfterViewInit {
   checkoutForm: FormGroup = this.fb.group({});
+  orderComplete = false;
   currUser!: User;
   products: { product: Product, quantity: number; }[] = [];
   totalPrice!: number;
-  finalProducts: { id: number, name: string, quantity: number, price: number; }[] = [];
+  cartProducts: Product[] = [];
+  finalProducts: { id: number, quantity: number, name: string, image: string, description: string, price: number; }[] = [];
+  listProducts: { quantity: number, name: string, price: number; }[] = [];
+  formValues!: {
+    address: string;
+    city: string;
+    state: string;
+    zipCode: string;
+  };
 
-  constructor(private localStore: LocalService,
+  constructor(
+    private localStore: LocalService,
     private productService: ProductService,
     private validation: ValidateService,
     private router: Router,
-    private fb: FormBuilder) { }
+    private fb: FormBuilder,
+    private orderConfirm: OrderConfirmComponent
+  ) { }
 
   ngOnInit(): void {
     this.checkoutForm = this.fb.group({
@@ -48,35 +60,59 @@ export class CheckoutComponent implements OnInit {
 
         this.products.forEach(
           (element) => {
-            const id = element.product.productId;
-            const name = element.product.productName;
-            const quantity = element.quantity;
-            const price = element.product.productPrice;
-            this.finalProducts.push({ id, name, quantity, price });
+            this.cartProducts.push(element.product);
           }
         );
+        this.totalPrice = cart.totalPrice;
+        this.listProducts = this.cartProducts.map(product => ({ quantity: product.quantity, name: product.productName, price: product.productPrice }));
       }
     );
   }
 
+  ngAfterViewInit(): void {
+    this.formValues = {
+      address: '',
+      city: '',
+      state: '',
+      zipCode: ''
+    };
+  }
+
   onSubmit(): void {
-    if (this.finalProducts.length > 0) {
-      const productsToSend = this.finalProducts.map(product => ({ id: product.id, quantity: product.quantity }));
-      this.productService.purchase(productsToSend).subscribe(
-        (resp) => console.log(resp),
-        (err) => console.log(err),
-        () => {
-          let cart = {
-            cartCount: 0,
-            products: [],
-            totalPrice: 0.00
-          };
-          this.productService.setCart(cart);
-          this.router.navigate(['/home']);
-        }
-      );
-    } else {
-      alert('Error submitting order.');
-    }
+    this.productService.getCart().subscribe(cart => {
+      if (cart.products.length > 0) {
+        const productsToSend = cart.products.map(product => ({ id: product.product.productId, quantity: product.quantity }));
+        console.log(productsToSend);
+
+        this.productService.purchase(productsToSend).subscribe(
+          (resp) => {
+            console.log(resp);
+            this.formValues = {
+              address: this.checkoutForm.get('address')!.value,
+              city: this.checkoutForm.get('city')!.value,
+              state: this.checkoutForm.get('state')!.value,
+              zipCode: this.checkoutForm.get('zipCode')!.value,
+            };
+
+            for (const value of Object.values(this.formValues)) {
+              console.log(value);
+            }
+
+            let cart = {
+              cartCount: 0,
+              products: [],
+              totalPrice: 0.00
+            };
+            this.productService.setCart(cart);
+            setTimeout(() => {
+              this.router.navigate(['confirmation']);
+            }, 1500);
+          },
+          (err) => alert('Order not submitted')
+        );
+      } else {
+        alert(`Error: Cart is empty`);
+      }
+    });
   }
 }
