@@ -1,12 +1,15 @@
 import { Component, OnInit } from '@angular/core';
-import { UntypedFormControl, UntypedFormGroup } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup, ReactiveFormsModule } from '@angular/forms';
 import { AuthService } from 'src/app/services/auth.service';
+import { RouterModule } from '@angular/router';
+import { compileNgModule } from '@angular/compiler';
 
 @Component({
   selector: 'app-reset-password',
   templateUrl: './reset-password.component.html',
   styleUrls: ['./reset-password.component.css']
 })
+
 export class ResetPasswordComponent implements OnInit {
   resetForm = new UntypedFormGroup({
     email: new UntypedFormControl(''),

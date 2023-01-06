@@ -11,6 +11,7 @@ import { ProductCardComponent } from './components/product-card/product-card.com
 import { CartComponent } from './components/cart/cart.component';
 import { CheckoutComponent } from './components/checkout/checkout.component';
 import { DisplayProductsComponent } from './components/display-products/display-products.component';
+import { ResetPasswordComponent } from './components/reset-password/reset-password.component';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ProductDetailsComponent } from './components/product-details/product-details.component';
@@ -29,7 +30,8 @@ import { ModalModule } from 'ngx-bootstrap/modal';
     CheckoutComponent,
     DisplayProductsComponent,
     ProductDetailsComponent,
-    OrderConfirmComponent
+    OrderConfirmComponent,
+    ResetPasswordComponent
   ],
   imports: [
     BrowserModule,
