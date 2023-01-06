@@ -115,12 +115,11 @@
                             </div>
                         </div>
 
-
                         <div class="mt-4 mb-4 d-flex justify-content-between">
                             <button class="btn btn-outline-info" [routerLink]="['/cart']">← Cart</button>
-                            <button class="btn btn-md btn-success px-3" (click)="onSubmit();">Confirm Order</button>
-                            <!-- !REMOVE -->
-                            <button class="btn btn-outline-warning" [routerLink]="['/confirmation']">Confirmation</button>
+                            <button class="btn btn-md btn-success px-3" [disabled]="cartProducts.length === 0" (click)="onSubmit();">Confirm
+                                Order</button>
+
                         </div>
                     </div>
                 </div>
@@ -130,7 +129,7 @@
                 <div class="card card-blue text-center p-3 text-white mb-3">
                     <span>Order Total</span>
                     <div class="d-flex flex-row justify-content-center mb-3">
-                        <h1 class="mb-0 yellow">${{totalPrice}}</h1>
+                        <h1 class="mb-0 yellow">${{totalPrice.toFixed(2)}}</h1>
                     </div>
 
                     <div class="card-body p-1">

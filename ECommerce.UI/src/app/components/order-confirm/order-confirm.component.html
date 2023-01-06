@@ -7,33 +7,15 @@
         <button type="button" class="btn btn-primary" (click)="redirectToHome()">Home</button>
     </form>
 </nav>
-<div class="container-fluid">
-    <div class="card bg-light border-success border-2 mx-auto my-3 p-4">
-        <div class="card-header border-success border-bottom-2 text-center">
-            <h4 class="header">Confirmation Number: #38023</h4>
-        </div>
-
-        <div class="lead total text-center">Order Total: $392.33</div>
-        <div class="card-body p-2 mx-auto">
-            <div class="lead font-weight-bold">Customer Contact: </div>
-            <div class="lead">Brianna Renni</div>
-            <div class="lead">brianna@gmail.com</div>
-            <div class="lead font-weight-bold">Shipping Address: </div>
-            <div class="lead">123 Fuck it St</div>
-            <div class="lead">Los Angeles CA 91605</div>
-
-            <!-- interpolate -->
-        </div>
-        <button type="button" class="btn btn-block mx-auto btn-success mt-2 px-3" (click)="redirectToHome()">Close</button>
-
+<div class="card container-fluid border-success border-2 mx-auto my-5 p-4">
+    <div class="card-header text-center rounded">
+        <h4 class="header">Order #: {{orderNum}}</h4>
     </div>
+    <div class="lead total text-center mt-2">Order Total: ${{totalPrice.toFixed(2)}}</div>
+    <div class="card-body p-1 mx-auto w-85 text-center">
+        <div class="lead font-weight-bold my-2">Contact Information:</div>
+        <div class="lead my-2">{{ fullName }}</div>
+        <div class="lead my-2">{{ email }}</div>
+    </div>
+    <button type="button" class="btn btn-block mx-auto btn-success mt-4 px-3" (click)="redirectToHome()">Close</button>
 </div>
-
-<!-- <div class="lead total text-center">Order Total: ${{ totalPrice }}</div> -->
-
-<!-- <div class="lead font-weight-bold">Customer Contact: </div> -->
-<!-- <div class="lead">{{ currUser.firstName }} {{ currUser.lastName }}</div> -->
-<!-- <div class="lead">{{ formValues.address }}</div> -->
-<!-- <div class="lead font-weight-bold">Shipping Address: </div>
-            <div class="lead">{{ formValues.address }}</div>
-            <div class="lead">{{ formValues.city }} {{ formValues.state }} {{ formValues.zipCode }}</div> -->

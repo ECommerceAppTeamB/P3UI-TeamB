@@ -3,10 +3,13 @@
 }
 
 .card {
-    background-color: #F26925;
     border-radius: 10px;
-    margin-top: 15px;
-    width: fit-content;
+    width: 60%;
+}
+
+.card-header {
+    background-color: #F26925;
+    color: white;
 }
 
 .header {
