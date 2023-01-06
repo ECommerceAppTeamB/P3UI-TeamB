@@ -3,6 +3,6 @@ export const environment = {
   baseUrl: "https://tentacles-shopping-api.azurewebsites.net",
   headers: {
     'Content-Type': 'application/json',
-    'Access-Control-Allow-Origin': 'https://ecommerceappteamb.github.io/P3UI-TeamB/',
+    'Access-Control-Allow-Origin': 'https://ecommerceappteamb.github.io/P3UI-TeamB/', 
   },
 };
