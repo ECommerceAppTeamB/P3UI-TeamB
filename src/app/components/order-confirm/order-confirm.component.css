@@ -1,0 +1,27 @@
+.navbar {
+    border-bottom: 1px solid #ece9e9;
+}
+
+.card {
+    border-radius: 10px;
+    width: 60%;
+}
+
+.card-header {
+    background-color: #F26925;
+    color: white;
+}
+
+.header {
+    font-size: 2rem;
+    margin: 1px;
+    letter-spacing: 1.5px;
+}
+
+.total {
+    font-size: 1.7rem;
+}
+
+.lead {
+    margin: 5px 0;
+}

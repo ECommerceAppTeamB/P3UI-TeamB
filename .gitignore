@@ -24,6 +24,8 @@ todos.md
 *.userosscache
 *.sln.docstates
 */.vscode/*
+.vscode/
+.angular
 
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
@@ -363,3 +365,5 @@ MigrationBackup/
 
 # Ionide (cross platform F# VS Code tools) working folder
 .ionide/
+
+ECommerce.UI/.angular/cache

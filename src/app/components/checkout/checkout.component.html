@@ -1,0 +1,151 @@
+<app-navbar></app-navbar>
+
+<div class="container-fluid mt-4 px-3">
+    <form class="m-4" id="register-form" [formGroup]="checkoutForm" #checkoutFormElement="ngForm">
+        <div class="mb-3">
+            <h2>Confirm Your Order</h2>
+            <span>Enter details below to confirm your order:</span>
+        </div>
+        <div class="row">
+            <div class="col-md-8">
+                <div class="card p-3">
+
+                    <h6 class="text-uppercase">Payment details</h6>
+                    <div class="inputbox mt-3">
+                        <input type="text" name="name" class="form-control" id="checkout-ctrl" formControlName="cardName" required="required"
+                            [ngClass]="{'invalid': checkoutFormElement.submitted && checkoutForm.controls['cardName'].invalid}">
+                        <span>Name on card</span>
+                    </div>
+
+                    <div class="row">
+
+                        <div class="col-md-6">
+                            <div class="inputbox mt-3 mr-2">
+                                <input type="number" name="name" class="form-control" id="checkout-ctrl" formControlName="cardNum" required
+                                    [ngClass]="{'invalid': (checkoutFormElement.submitted && !checkoutForm.controls['cardNum'].value) || (checkoutForm.get('cardNum')!.touched && checkoutForm.controls['cardNum'].invalid)}">
+
+                                <i class="fa fa-credit-card"></i> <span>Card Number</span>
+                            </div>
+                            <div class="align-end" *ngIf="checkoutForm.get('cardNum')?.hasError('minLength') && checkoutForm.get('cardNum')?.touched">
+                                <span class="error">
+                                    <small id="cardNumHelp" class="form-text text-danger">Invalid Card Number</small>
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="d-flex flex-row">
+                                <div class="inputbox mt-3 mr-2">
+                                    <input type="text" name="name" class="form-control" id="checkout-ctrl" formControlName="expDate"
+                                        required="required" maxlength="5"
+                                        [ngClass]="{'invalid': (checkoutFormElement.submitted && !checkoutForm.controls['expDate'].value) || (checkoutForm.get('expDate')!.touched && checkoutForm.controls['expDate'].invalid)}">
+                                    <span>Expiration</span>
+                                </div>
+
+                                <div class="inputbox mt-3 mr-2">
+                                    <input type="input" name="name" class="form-control" id="checkout-ctrl" formControlName="cvv" required="required"
+                                        maxlength="3"
+                                        [ngClass]="{'invalid': (checkoutFormElement.submitted && !checkoutForm.controls['cvv'].value) || (checkoutForm.get('cvv')!.touched && checkoutForm.controls['cvv'].invalid)}">
+                                    <span>CVV</span>
+                                </div>
+                            </div>
+
+                            <div class="d-flex flex-row justify-content-between align-items-baseline">
+                                <span class="error"
+                                    *ngIf="checkoutForm.get('expDate')?.hasError('invalidFormat') && checkoutForm.get('expDate')?.touched">
+                                    <small id="expDateHelp" class="form-text text-danger">Invalid Exp. Date</small>
+                                </span>
+                                <span class="error" *ngIf="checkoutForm.get('cvv')?.hasError('minLength') && checkoutForm.get('cvv')?.touched">
+                                    <small id="cvvHelp" class="form-text text-danger">Invalid CVV</small>
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="mt-4 mb-4">
+
+                            <h6 class="text-uppercase">Billing Address</h6>
+                            <div class="row mt-3">
+
+                                <div class="col-md-6">
+
+                                    <div class="inputbox mt-3 mr-2"> <input type="text" name="name" class="form-control" id="checkout-ctrl"
+                                            required="required"
+                                            [ngClass]="{'invalid': checkoutFormElement.submitted && checkoutForm.controls['cardName'].invalid}">
+                                        <span>Street Address</span>
+                                    </div>
+
+                                </div>
+
+
+                                <div class="col-md-6">
+
+                                    <div class="inputbox mt-3 mr-2"> <input type="text" name="name" class="form-control" id="checkout-ctrl"
+                                            required="required"
+                                            [ngClass]="{'invalid': checkoutFormElement.submitted && checkoutForm.controls['cardName'].invalid}">
+                                        <span>City</span>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                            <div class="row mt-2">
+
+                                <div class="col-md-6">
+                                    <div class="inputbox mt-3 mr-2"> <input type="text" name="name" class="form-control" id="checkout-ctrl"
+                                            required="required"
+                                            [ngClass]="{'invalid': checkoutFormElement.submitted && checkoutForm.controls['cardName'].invalid}">
+                                        <span>State</span>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <div class="inputbox mt-3 mr-2">
+                                        <input type="text" name="name" class="form-control" id="checkout-ctrl" formControlName="zipCode"
+                                            required="required"
+                                            [ngClass]="{'invalid': checkoutFormElement.submitted && checkoutForm.controls['cardName'].invalid}">
+                                        <span>Zip code</span>
+                                    </div>
+
+                                    <div *ngIf="checkoutForm.get('zipCode')?.hasError('minLength') && checkoutForm.get('zipCode')?.touched">
+                                        <span class="error">
+                                            <small id="zipCodeHelp" class="form-text text-danger">Invalid Zip Code</small>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="mt-4 mb-4 d-flex justify-content-between">
+                            <button class="btn btn-outline-info" [routerLink]="['/cart']">← Cart</button>
+                            <button class="btn btn-md btn-success px-3" [disabled]="cartProducts.length === 0" (click)="onSubmit();">Confirm
+                                Order</button>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4 right-card">
+                <div class="card card-blue text-center p-3 text-white mb-3">
+                    <span>Order Total</span>
+                    <div class="d-flex flex-row justify-content-center mb-3">
+                        <h1 class="mb-0 yellow">${{totalPrice.toFixed(2)}}</h1>
+                    </div>
+
+                    <div class="card-body p-1">
+                        <div id="breakdown">
+                            <ng-container *ngFor="let product of listProducts">
+                                <div class="row p-1 text-center border-top">
+                                    <div class="col-1">{{ product.quantity }}</div>
+                                    <div class="col-7 font-weight-bold">{{ product.name }}</div>
+                                    <div class="col-4 text-right">${{ product.price }}</div>
+                                </div>
+                            </ng-container>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
