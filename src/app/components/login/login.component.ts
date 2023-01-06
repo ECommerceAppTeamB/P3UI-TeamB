@@ -67,7 +67,7 @@ export class LoginComponent implements OnInit {
 				}, 2500);
 			},
 			(err) => {
-				console.log(email, password);
+				//console.log(email, password);
 				console.log(err);
 				this.errorMessage = 'Invalid login information';
 				this.error = true;

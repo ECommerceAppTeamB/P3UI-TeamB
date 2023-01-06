@@ -6,7 +6,7 @@
 export const environment = {
   production: false,
   withCredentials: true,
-  baseUrl: "https://tentacles-shopping-api.azurewebsites.net",
+  baseUrl: "https://localhost:7080",
   headers: {
     'Content-Type': 'application/json',
     'Access-Control-Allow-Origin': 'https://localhost:4200',
