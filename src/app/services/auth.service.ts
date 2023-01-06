@@ -55,4 +55,9 @@ export class AuthService {
     this.currUser = null;
     localStorage.removeItem('user');
   }
+
+  resetPassword(email: string, password: string): Observable<any> {
+    const payload = {email:email, password:password};
+    return this.http.patch<any>(`${this.authUrl}/reset-password`, payload, {headers: environment.headers});
+  }
 }
