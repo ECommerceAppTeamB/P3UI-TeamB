@@ -56,6 +56,17 @@ export class ProductCardComponent implements OnInit {
       return;
     }
 
+    if (this.quantity > product.productQuantity) {
+      this.errorMessage = 'Quantity exceeds available stock';
+      this.error = true;
+      this.success = false;
+      setTimeout(() => {
+        this.error = false;
+        this.errorMessage = '';
+      }, 3000);
+      return;
+    }
+
     // Check if the item is already in the cart
     if (cartItem = this.products.find(item => item.product.productId === product.productId)) {
       // Make sure the quantity being added is valid

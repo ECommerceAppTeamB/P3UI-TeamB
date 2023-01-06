@@ -9,9 +9,8 @@ img {
   justify-content: center;
   height: auto;
   width: auto;
-  max-height: 200px;
+  max-height: 220px;
   max-width: 307px;
-  left: 0;
 }
 
 div {
@@ -19,6 +18,9 @@ div {
   transition: .2s ease-out;
 }
 
+small {
+  font-style: italic;
+}
 
 .card:hover {
   box-shadow: 0 5px 10px rgba(0, 0, 0, .2);
@@ -39,4 +41,3 @@ div {
 input:focus {
   box-shadow: 4px 4px 12px rgba(0, 0, 0, 0.1), 0 0 12px #fff !important;
 }
-
