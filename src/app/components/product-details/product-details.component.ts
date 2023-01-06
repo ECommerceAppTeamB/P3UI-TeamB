@@ -6,10 +6,10 @@ import { BsModalService, BsModalRef, ModalOptions } from 'ngx-bootstrap/modal';
   selector: 'app-product-details',
   templateUrl: './product-details.component.html',
   styleUrls: ['./product-details.component.css'],
-
 })
+
 export class ProductDetailsComponent implements OnInit {
-  
+
   modalRef?: BsModalRef;
 
   @Input() productInfo!: Product;
@@ -17,11 +17,9 @@ export class ProductDetailsComponent implements OnInit {
   constructor(private modalService: BsModalService) { }
 
   openModal(template: TemplateRef<any>) {
-    this.modalRef = this.modalService.show(template);
+    this.modalRef = this.modalService.show(template, { class: 'modal-lg' });
   }
 
   ngOnInit(): void {
   }
 }
-
-

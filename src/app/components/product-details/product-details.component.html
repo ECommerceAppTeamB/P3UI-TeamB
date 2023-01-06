@@ -1,17 +1,20 @@
-<button type="button" class="btn btn-primary" (click)="openModal(template)">View Product Details</button>
+<button type="button" class="btn btn-info btn-block" (click)="openModal(template)">View Product Details</button>
 
 <ng-template #template>
-    <div class="modal-header">
-      <h4 class="modal-title pull-left">Product Details for {{productInfo.productName}}</h4>
-      <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="modalRef?.hide()">
-        <span aria-hidden="true" class="visually-hidden">&times;</span>
-      </button>
-    </div>
-    <div class="modal-body">
+  <div class="modal-header bg-light">
+    <h4 class="modal-title pull-left">{{productInfo.productName}}</h4>
+    <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="modalRef?.hide()">
+      <span aria-hidden="true" class="visually-hidden" style="font-size: 35px;">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="card">
       <img class="card-img-top" [src]="productInfo.productImage" alt="Card image cap">
-      <p>Product Name: {{productInfo.productName}}</p>
-      <p>Product Description: {{productInfo.productDescription}}</p>
-      <p>Product Price: ${{productInfo.productPrice}}</p>
-      <p>Current Stock: {{productInfo.productQuantity}}</p>
+      <div class="card-body text-center">
+        <h5 class="card-title p-0">${{productInfo.productPrice}}</h5>
+        <p class="card-text font-italic">{{productInfo.productDescription}}</p>
+        <p class="card-text text-muted">Current Stock: {{productInfo.productQuantity}}</p>
+      </div>
     </div>
-  </ng-template>
+  </div>
+</ng-template>

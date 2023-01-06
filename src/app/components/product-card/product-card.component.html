@@ -1,30 +1,24 @@
 <div class="card bg-light m-2">
-  <img class="card-img-top mx-auto my-3" [src]="productInfo.productImage" alt="Card image cap">
+  <img class="card-img-top rounded mx-auto my-3" [src]="productInfo.productImage" alt="Card image cap">
   <h4 class="card-title mx-auto text-center font-weight-bold">{{productInfo.productName}}</h4>
   <p class="card-text mx-auto text-center text-secondary">{{productInfo.productDescription}}</p>
+  <small class="card-text mx-auto text-center text-danger" *ngIf="productInfo.productQuantity > 0 && productInfo.productQuantity <= 10"> Low
+    Stock</small>
+  <small class="card-text mx-auto text-center text-danger" *ngIf="productInfo.productQuantity == 0">Out of Stock</small>
 
-  <div class="input-group input-group-sm mb-3 d-flex justify-content-center">
-    <div class="input-group-prepend mr-2">
-    </div>
-    <span class="h3 text-center font-weight-bold">${{ productInfo.productPrice }}</span>
+  <div class="input-group input-group-sm d-flex justify-content-center">
+    <span class="h3 text-center mx-1 font-weight-bold" *ngIf="productInfo.productQuantity > 0">${{ productInfo.productPrice }}</span>
   </div>
 
-  <div class="input-group input-group-sm mb-3 p-1">
-    <div class="input-group-prepend">
-      <span class="input-group-text" id="inputGroup-sizing-sm">Left in Stock</span>
-    </div>
-    <input type="number" class="form-control" [value]="productInfo.productQuantity" aria-describedby="inputGroup-sizing-sm" disabled>
-  </div>
+  <app-product-details [productInfo]="productInfo" class="m-2 mb-1"></app-product-details>
 
-  <div class="input-group input-group-sm p-1">
-    <div class="input-group-prepend w-50">
+  <div class="input-group input-group-md p-2" *ngIf="productInfo.productQuantity > 0">
+    <div class="input-group-prepend w-75">
       <button id="add-to-cart" class="btn btn-success w-100" (click)="addToCart(productInfo)">Add to Cart</button>
     </div>
-    <input type="number" class="form-control w-50" [(ngModel)]="quantity" min="1" max="50" [disabled]="productInfo.productQuantity == 0">
+    <input type="number" class="form-control w-25" [(ngModel)]="quantity" min="1" max="50">
   </div>
 
   <ux-tip [errorMessage]="errorMessage" [successMessage]="successMessage" [error]="error" [success]="success"></ux-tip>
-  <app-product-details [productInfo]="productInfo"></app-product-details>
-</div>
 
-  
+</div>
