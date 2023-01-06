@@ -18,7 +18,6 @@
                     </div>
 
                     <div class="row">
-
                         <div class="col-md-6">
                             <div class="inputbox mt-3 mr-2">
                                 <input type="number" name="name" class="form-control" id="checkout-ctrl" formControlName="cardNum" required
@@ -62,23 +61,19 @@
                         </div>
 
                         <div class="mt-4 mb-4">
-
                             <h6 class="text-uppercase">Billing Address</h6>
                             <div class="row mt-3">
 
                                 <div class="col-md-6">
-
                                     <div class="inputbox mt-3 mr-2"> <input type="text" name="name" class="form-control" id="checkout-ctrl"
                                             required="required"
                                             [ngClass]="{'invalid': checkoutFormElement.submitted && checkoutForm.controls['cardName'].invalid}">
                                         <span>Street Address</span>
                                     </div>
-
                                 </div>
 
 
                                 <div class="col-md-6">
-
                                     <div class="inputbox mt-3 mr-2"> <input type="text" name="name" class="form-control" id="checkout-ctrl"
                                             required="required"
                                             [ngClass]="{'invalid': checkoutFormElement.submitted && checkoutForm.controls['cardName'].invalid}">
@@ -89,7 +84,6 @@
                             </div>
 
                             <div class="row mt-2">
-
                                 <div class="col-md-6">
                                     <div class="inputbox mt-3 mr-2"> <input type="text" name="name" class="form-control" id="checkout-ctrl"
                                             required="required"
@@ -114,12 +108,12 @@
                                 </div>
                             </div>
                         </div>
-
+                    </div>
+                    <div class="row">
                         <div class="mt-4 mb-4 d-flex justify-content-between">
                             <button class="btn btn-outline-info" [routerLink]="['/cart']">← Cart</button>
                             <button class="btn btn-md btn-success px-3" [disabled]="cartProducts.length === 0" (click)="onSubmit();">Confirm
                                 Order</button>
-
                         </div>
                     </div>
                 </div>
