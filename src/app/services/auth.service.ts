@@ -27,7 +27,6 @@ export class AuthService {
     const payload = { email, password };
     return this.http.post<any>(`${ this.authUrl }/login`, payload, {
       headers: environment.headers,
-      withCredentials: true
     }).pipe(
       tap(response => {
         if (response) {
