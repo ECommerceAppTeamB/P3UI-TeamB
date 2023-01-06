@@ -91,4 +91,5 @@ export class LocalService {
   getZip() {
     return Number(this.getData('zip'));
   }
+
 }
