@@ -1,13 +1,20 @@
+// Build
+// export const environment = {
+//   production: false,
+//   baseUrl: "https://tentacles-shopping-api.azurewebsites.net",
+//   headers: {
+//     'Content-Type': 'application/json',
+//     'Access-Control-Allow-Origin': 'https://localhost:4200',
+//   },
+// };
 
-// This file can be replaced during build by using the `fileReplacements` array.
-// `ng build` replaces `environment.ts` with `environment.prod.ts`.
-// The list of file replacements can be found in `angular.json`.
 
+// Deploy
 export const environment = {
-  production: false,
-  baseUrl: "https://localhost:7078",
+  production: true,
+  baseUrl: "https://tentacles-shopping-api.azurewebsites.net",
   headers: {
     'Content-Type': 'application/json',
-    'Access-Control-Allow-Origin': 'https://localhost:4200',
+    'Access-Control-Allow-Origin': 'https://ecommerceappteamb.github.io/P3UI-TeamB/',
   },
 };
