@@ -17,7 +17,7 @@ const routes: Routes = [
   { path: "cart", component: CartComponent, canActivate: [AuthGuard] },
   { path: "checkout", component: CheckoutComponent, canActivate: [AuthGuard] },
   {path: "confirmation", component: OrderConfirmComponent, canActivate: [AuthGuard]},
-  { path: "reset-password", component: ResetPasswordComponent, canActivate: [AuthGuard]}
+  { path: "reset-password", component: ResetPasswordComponent}
 ];
 
 @NgModule({
