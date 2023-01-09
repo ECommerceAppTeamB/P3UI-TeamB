@@ -32,6 +32,7 @@ jobs:
         with:
           name: node-app
           path: dist/e-commerce
+          
 
   deploy:
     runs-on: ubuntu-latest
