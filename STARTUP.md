@@ -1,6 +1,6 @@
 ## To Deploy
 
-Install 'angular-cli-gh-pages'
+Install 'angular-cli-ghpages'
 
 ```git merge``` to gh-pages branch
 
