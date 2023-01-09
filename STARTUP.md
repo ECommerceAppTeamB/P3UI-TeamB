@@ -16,4 +16,4 @@ Build the files on gh-pages brach with
 
 Use angular-cli-ghpages to deploy with 
 
-```npx angular-cli-pages --dir=dist/e-commerce```
+```npx angular-cli-ghpages --dir=dist/e-commerce```
