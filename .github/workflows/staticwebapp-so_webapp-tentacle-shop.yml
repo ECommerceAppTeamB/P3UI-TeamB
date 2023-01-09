@@ -6,7 +6,7 @@ name: Build and deploy Node.js app to Azure Web App - webapp-tentacle-shop
 on:
   push:
     branches:
-      - staticwebapp-so
+      - main #staticwebapp-so
   workflow_dispatch:
 
 jobs:
