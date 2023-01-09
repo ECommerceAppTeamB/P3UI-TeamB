@@ -2,7 +2,13 @@
 
 Install 'angular-cli-gh-pages'
 
-```git merge``` to gh-pages branch, DO NOT ```git push```
+```git merge``` to gh-pages branch
+
+> **Warning**
+> DO NOT `git push`
+
+
+
 
 Build the files on gh-pages brach with
 
