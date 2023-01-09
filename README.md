@@ -31,4 +31,4 @@ Angular's dev server supports live reload and runs on `localhost:4200`, which is
 
 ## Deployment
 
-The web app is deployed on Azure App Services, see [STARTUP.md](https://github.com/ECommerceAppTeamB/P3UI-TeamB/blob/main/STARTUP.md)
+The web app is deployed on Azure App Services, see [STARTUP.md](https://github.com/ECommerceAppTeamB/P3UI-TeamB/blob/main/STARTUP.md).
