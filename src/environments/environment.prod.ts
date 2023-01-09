@@ -5,4 +5,4 @@ export const environment = {
     'Content-Type': 'application/json',
     'Access-Control-Allow-Origin': ' https://ecommerceappteamb.github.io/P3UI-TeamB', 
   },
-};
+}; 
