@@ -10,15 +10,16 @@ import { ResetPasswordComponent } from './components/reset-password/reset-passwo
 import { AuthGuard } from './services/auth-guard.service';
 
 const routes: Routes = [
-  { path: "", redirectTo: "/login", pathMatch: "full" },
+  { path: "", component: LoginComponent },//redirectTo: "/login", pathMatch: "full" },
   { path: "login", component: LoginComponent },
   { path: "register", component: RegisterComponent },
+  { path: "reset-password", component: ResetPasswordComponent },
   { path: "home", component: DisplayProductsComponent, canActivate: [AuthGuard] },
   { path: "cart", component: CartComponent, canActivate: [AuthGuard] },
   { path: "checkout", component: CheckoutComponent, canActivate: [AuthGuard] },
-  {path: "confirmation", component: OrderConfirmComponent, canActivate: [AuthGuard]},
-  { path: "reset-password", component: ResetPasswordComponent}
+  { path: "confirmation", component: OrderConfirmComponent, canActivate: [AuthGuard] },
 ];
+
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
