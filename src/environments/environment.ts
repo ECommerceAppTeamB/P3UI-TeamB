@@ -3,5 +3,6 @@ export const environment = {
   baseUrl: "https://tentaclesapi.azurewebsites.net",
   headers: {
     'Content-Type': 'application/json',
+    'Access-Control-Allow-Origin': 'https://webapp-tentacle-shop.azurewebsites.net',
   },
 };
