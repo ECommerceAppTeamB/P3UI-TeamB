@@ -65,8 +65,18 @@ export class RegisterComponent implements OnInit {
         this.localStore.saveData('currUser', JSON.stringify(this.currUser));
         setTimeout(() => {
           this.router.navigate(['home']);
-        }, 3000);
+        }, 2500);
       },
+      (err) => {
+        console.log(err);
+        this.errorMessage = 'Email already in use';
+        this.error = true;
+        this.success = false;
+        setTimeout(() => {
+          this.error = false;
+          this.errorMessage = '';
+        }, 4000);
+      }
     );
   }
 }
