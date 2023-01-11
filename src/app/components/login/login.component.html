@@ -24,7 +24,7 @@
       <input type="password" class="form-control" formControlName="password" id="login-pw" placeholder="Password"
         [ngClass]="{ 'is-invalid': loginForm.get('password')?.invalid && (loginForm.get('password')?.dirty || loginFormElement.submitted) }" />
 
-      <button type="submit" class="btn btn-block btn-primary mt-3" (click)="onSubmit()">Login</button>
+      <button type="submit" class="btn btn-block btn-primary mt-3">Login</button>
 
       <button type="submit" class="btn btn-block bg-info text-white mt-3" [routerLink]="['/register']">
         Register New Account

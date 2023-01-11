@@ -16,13 +16,7 @@ export class AuthService {
   storedUser?: User | null;
   currUser?: User | null;
 
-  constructor(private localStore: LocalService, private router: Router, private http: HttpClient) {
-    // * auth method
-    // const storedUser = this.localStore.getData('user');
-    // if (storedUser) {
-    //   this.currUser = JSON.parse(storedUser);
-    // }
-  }
+  constructor(private localStore: LocalService, private router: Router, private http: HttpClient) { }
 
   login(email: string, password: string): Observable<any> {
     const payload = { email, password };
@@ -31,12 +25,7 @@ export class AuthService {
     }).pipe(
       tap(response => {
         if (response) {
-          // * auth method
-          this.currUser = new User(response.userId, response.firstName, response.lastName, response.email);
-          this.localStore.saveData('currUser', JSON.stringify(this.currUser));
-          setTimeout(() => {
-            this.router.navigate(['home']);
-          }, 2500);
+          this.authSuccess(response);
         }
       })
     );
@@ -47,12 +36,7 @@ export class AuthService {
     return this.http.post<any>(`${ this.authUrl }/register`, payload, { headers: environment.headers }).pipe(
       tap(response => {
         if (response) {
-          // * auth method
-          this.currUser = new User(response.id, response.firstName, response.lastName, response.email);
-          this.localStore.saveData('currUser', JSON.stringify(this.currUser));
-          setTimeout(() => {
-            this.router.navigate(['home']);
-          }, 2500);
+          this.authSuccess(response);
         }
       })
     );
@@ -63,8 +47,13 @@ export class AuthService {
     this.localStore.clearCurrUser();
   }
 
-  onSuccess(): void {
-    // * auth method
+  authSuccess(response: any) {
+    this.currUser = new User(response.userId, response.firstName, response.lastName, response.email);
+    this.localStore.saveData('currUser', JSON.stringify(this.currUser));
+    console.log(this.localStore.getCurrUser());
+    setTimeout(() => {
+      this.router.navigate(['home']);
+    }, 2500);
   }
 
   resetPassword(email: string, password: string): Observable<any> {
