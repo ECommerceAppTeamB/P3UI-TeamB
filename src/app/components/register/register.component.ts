@@ -3,6 +3,7 @@ import { FormBuilder, AbstractControl, FormGroup, Validators } from '@angular/fo
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
 import { UxTipComponent } from '../uxtip/uxtip.component';
+import { tap } from 'rxjs/operators';
 import { User } from '../../models/user';
 import { LocalService } from 'src/app/services/local.service';
 
@@ -49,31 +50,27 @@ export class RegisterComponent implements OnInit {
 
     if (this.registerForm.invalid) {
       this.error = true;
-      this.success = false;
       setTimeout(() => {
         this.error = false;
       }, 4000);
       return;
     }
 
-    this.authService.register(fname, lname, email, password).subscribe(
-      (response) => {
-        this.currUser = new User(response.id, response.firstName, response.lastName, response.email);
-        this.error = false;
-        this.success = true;
-        setTimeout(() => {
-          this.router.navigate(['home']);
-        }, 2500);
-      },
-      (err) => {
-        console.log(err);
-        this.errorMessage = 'Email already in use';
-        this.error = true;
-        this.success = false;
-        setTimeout(() => {
+    this.authService.register(fname, lname, email, password)
+      .subscribe(
+        (response) => {
           this.error = false;
-        }, 4000);
-      }
-    );
+          this.success = true;
+        },
+        (err) => {
+          console.log(err);
+          this.errorMessage = 'Email already in use';
+          this.error = true;
+          this.success = false;
+          setTimeout(() => {
+            this.error = false;
+          }, 4000);
+        }
+      );
   }
 }

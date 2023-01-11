@@ -8,7 +8,6 @@ import { LocalService } from './local.service';
 })
 
 export class AuthGuard implements CanActivate {
-
   constructor(private authService: AuthService, private localStore: LocalService, private router: Router) { }
 
   canActivate(): boolean {

@@ -49,7 +49,10 @@ export class AuthService {
         if (response) {
           // * auth method
           this.currUser = new User(response.id, response.firstName, response.lastName, response.email);
-          this.localStore.saveData('user', JSON.stringify(this.currUser));
+          this.localStore.saveData('currUser', JSON.stringify(this.currUser));
+          setTimeout(() => {
+            this.router.navigate(['home']);
+          }, 2500);
         }
       })
     );

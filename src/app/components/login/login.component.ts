@@ -19,7 +19,6 @@ export class LoginComponent implements OnInit {
   successMessage = 'Successfully logged in';
   error = false;
   success = false;
-  currUser!: User;
 
   constructor(
     private localStore: LocalService,
@@ -51,11 +50,8 @@ export class LoginComponent implements OnInit {
       return;
     }
 
-    this.authService.login(email, password).pipe(
-      tap(response => this.currUser = new User(response.userId, response.firstName, response.lastName, response.email))
-    ).subscribe(
+    this.authService.login(email, password).subscribe(
       (response) => {
-        console.log(this.currUser);
         this.error = false;
         this.success = true;
       },
@@ -70,4 +66,5 @@ export class LoginComponent implements OnInit {
       }
     );
   }
+
 }
