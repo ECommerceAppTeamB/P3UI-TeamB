@@ -39,8 +39,8 @@ export class LocalService {
 
   // Methods
   public getCurrUser(): User {
-    const user = this.getData('currUser')!;
-    return JSON.parse(user);
+    const currUser = this.getData('currUser')!;
+    return JSON.parse(currUser);
   }
 
   public clearCurrUser(): void {
