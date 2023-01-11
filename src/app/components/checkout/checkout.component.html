@@ -128,11 +128,11 @@
 
                     <div class="card-body p-1">
                         <div id="breakdown">
-                            <ng-container *ngFor="let product of listProducts">
+                            <ng-container *ngFor="let item of items">
                                 <div class="row p-1 text-center border-top">
-                                    <div class="col-1">{{ product.quantity }}</div>
-                                    <div class="col-7 font-weight-bold">{{ product.name }}</div>
-                                    <div class="col-4 text-right">${{ product.price }}</div>
+                                    <div class="col-1">{{ item.quantity }}</div>
+                                    <div class="col-7 font-weight-bold">{{ item.product.productName }}</div>
+                                    <div class="col-4 text-right">${{ item.product.productPrice }}</div>
                                 </div>
                             </ng-container>
                         </div>

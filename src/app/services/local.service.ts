@@ -17,8 +17,11 @@ interface Cart {
 
 export class LocalService {
 
+  // TODO: Cart in oninit somewhere?
+
   constructor() { }
 
+  // Utility methods
   public saveData(key: string, value: string) {
     localStorage.setItem(key, value);
   }
@@ -34,9 +37,14 @@ export class LocalService {
     localStorage.clear();
   }
 
+  // Methods
   public getCurrUser(): User {
     const user = this.getData('currUser')!;
     return JSON.parse(user);
+  }
+
+  public clearCurrUser(): void {
+    this.removeData('currUser');
   }
 
   public getCurrCart(): Cart {
@@ -68,28 +76,28 @@ export class LocalService {
     return this.getData('address')!;
   }
 
-  setCity(city: string) {
-    this.saveData('city', city);
-  }
+  // setCity(city: string) {
+  //   this.saveData('city', city);
+  // }
 
-  getCity(): string {
-    return this.getData('city')!;
-  }
+  // getCity(): string {
+  //   return this.getData('city')!;
+  // }
 
-  setState(state: string) {
-    this.saveData('state', state);
-  }
+  // setState(state: string) {
+  //   this.saveData('state', state);
+  // }
 
-  getState(): string {
-    return this.getData('state')!;
-  }
+  // getState(): string {
+  //   return this.getData('state')!;
+  // }
 
-  setZip(zip: number) {
-    this.saveData('zip', JSON.stringify(zip));
-  }
+  // setZip(zip: number) {
+  //   this.saveData('zip', JSON.stringify(zip));
+  // }
 
-  getZip() {
-    return Number(this.getData('zip'));
-  }
+  // getZip() {
+  //   return Number(this.getData('zip'));
+  // }
 
 }

@@ -7,8 +7,6 @@ import { LocalService } from './services/local.service';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'E-Commerce Client';
 
-  constructor() {}
-
+  constructor() { }
 }

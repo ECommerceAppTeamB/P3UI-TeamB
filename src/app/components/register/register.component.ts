@@ -58,15 +58,22 @@ export class RegisterComponent implements OnInit {
 
     this.authService.register(fname, lname, email, password).subscribe(
       (response) => {
-        this.currUser = new User(response.id, response.firstName, response.lastName, response.email, response.password);
-        this.authService.loggedIn = true;
+        this.currUser = new User(response.id, response.firstName, response.lastName, response.email);
         this.error = false;
         this.success = true;
-        this.localStore.saveData('currUser', JSON.stringify(this.currUser));
         setTimeout(() => {
           this.router.navigate(['home']);
-        }, 3000);
+        }, 2500);
       },
+      (err) => {
+        console.log(err);
+        this.errorMessage = 'Email already in use';
+        this.error = true;
+        this.success = false;
+        setTimeout(() => {
+          this.error = false;
+        }, 4000);
+      }
     );
   }
 }
