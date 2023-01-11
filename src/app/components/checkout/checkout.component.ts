@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterViewInit} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Product } from 'src/app/models/product';
@@ -13,13 +13,12 @@ import { LocalService } from 'src/app/services/local.service';
   providers: [ValidateService]
 })
 
-export class CheckoutComponent implements OnInit, AfterViewInit {
+export class CheckoutComponent implements OnInit {
   checkoutForm: FormGroup = this.fb.group({});
   totalPrice!: number;
-  products: { product: Product, quantity: number; }[] = [];
+  items: { product: Product, quantity: number; }[] = [];
   cartProducts: Product[] = [];
   finalProducts!: { id: number, quantity: number; }[];
-  listProducts: { quantity: number, name: string, price: number; }[] = [];
   orderComplete = false;
   orderNum = Math.floor(Math.random() * 100000000) + 10000000;
   formValues!: {
@@ -51,34 +50,21 @@ export class CheckoutComponent implements OnInit, AfterViewInit {
 
     this.productService.getCart().subscribe(
       (cart) => {
-        this.products = cart.products;
+        this.items = cart.products;
         this.totalPrice = cart.totalPrice;
 
-        this.products.forEach(
-          (element) => {
-            this.cartProducts.push(element.product);
+        this.items.forEach(
+          (item) => {
+            this.cartProducts.push(item.product);
           }
         );
         this.totalPrice = cart.totalPrice;
-        this.listProducts = this.cartProducts.map(product => ({ quantity: product.quantity, name: product.productName, price: product.productPrice }));
       }
     );
   }
 
-  ngAfterViewInit(): void {
-    this.formValues = {
-      address: '',
-      city: '',
-      state: '',
-      zipCode: ''
-    };
-  }
-
   onSubmit(): void {
-    this.productService.getCart().subscribe(cart => {
-      this.finalProducts = cart.products.map(product => ({ id: product.product.productId, quantity: product.quantity }));
-    });
-
+    this.finalProducts = this.items.map(item => ({ id: item.product.productId, quantity: item.quantity }));
     this.productService.purchase(this.finalProducts).subscribe(
       (resp) => {
         this.setDetails();
@@ -103,5 +89,4 @@ export class CheckoutComponent implements OnInit, AfterViewInit {
     let cart = { cartCount: 0, products: [], totalPrice: 0.00 };
     this.productService.setCart(cart);
   }
-
 }

@@ -22,6 +22,7 @@ export class OrderConfirmComponent implements OnInit {
     private router: Router) { }
 
   redirectToHome() {
+    this.localStore.removeData('orderNum');
     this.router.navigate(['home']);
   }
 
@@ -31,9 +32,9 @@ export class OrderConfirmComponent implements OnInit {
     this.email = currUser.email;
     this.orderNum = this.localStore.getOrderNum();
     this.totalPrice = this.localStore.getTotal();
-    this.address = this.localStore.getAddress();
-    this.city = this.localStore.getCity();
-    this.state = this.localStore.getState();
-    this.zipCode = this.localStore.getZip();
+    // this.address = this.localStore.getAddress();
+    // this.city = this.localStore.getCity();
+    // this.state = this.localStore.getState();
+    // this.zipCode = this.localStore.getZip();
   }
 }

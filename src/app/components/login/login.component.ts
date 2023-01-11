@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, AbstractControl, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
 import { UxTipComponent } from '../uxtip/uxtip.component';
 import { tap } from 'rxjs/operators';
@@ -25,7 +24,6 @@ export class LoginComponent implements OnInit {
   constructor(
     private localStore: LocalService,
     private authService: AuthService,
-    private router: Router,
     private fb: FormBuilder
   ) { }
 
@@ -54,17 +52,12 @@ export class LoginComponent implements OnInit {
     }
 
     this.authService.login(email, password).pipe(
-      tap(response => this.currUser = new User(response.userId, response.firstName, response.lastName, response.email, response.password))
+      tap(response => this.currUser = new User(response.userId, response.firstName, response.lastName, response.email))
     ).subscribe(
       (response) => {
-        console.log(response.user);
-        this.authService.loggedIn = true;
+        console.log(this.currUser);
         this.error = false;
         this.success = true;
-        this.localStore.saveData('currUser', JSON.stringify(this.currUser));
-        setTimeout(() => {
-          this.router.navigate(['home']);
-        }, 2500);
       },
       (err) => {
         console.log(err);
@@ -73,7 +66,6 @@ export class LoginComponent implements OnInit {
         this.success = false;
         setTimeout(() => {
           this.error = false;
-          this.errorMessage = '';
         }, 4000);
       }
     );

@@ -10,21 +10,22 @@ import { ProductService } from 'src/app/services/product.service';
 })
 
 export class CartComponent implements OnInit {
-  products: {
+  items: {
     product: Product,
     quantity: number;
   }[] = [];
   totalPrice!: number;
   cartProducts: Product[] = [];
+  disableCheckout = false;
 
   constructor(private productService: ProductService, private router: Router) { }
 
   ngOnInit(): void {
     this.productService.getCart().subscribe(
       (cart) => {
-        this.products = cart.products;
-        this.products.forEach(
-          (element) => this.cartProducts.push(element.product)
+        this.items = cart.products;
+        this.items.forEach(
+          (item) => this.cartProducts.push(item.product)
         );
         this.totalPrice = cart.totalPrice;
       }
@@ -32,11 +33,11 @@ export class CartComponent implements OnInit {
   }
 
   emptyCart(): void {
-    this.products = [];
+    this.items = [];
     this.totalPrice = 0;
     this.productService.setCart({
       cartCount: 0,
-      products: this.products,
+      products: this.items,
       totalPrice: this.totalPrice
     });
   }
@@ -48,30 +49,30 @@ export class CartComponent implements OnInit {
 
   recalculateTotalPrice(): void {
     this.totalPrice = 0;
-    this.products.forEach(
-      (product) => {
-        this.totalPrice += product.product.productPrice * product.quantity;
+    this.items.forEach(
+      (item) => {
+        this.totalPrice += item.product.productPrice * item.quantity;
       }
     );
   }
 
   updateCart(product: Product, quantity: number): void {
-    let item = this.products.find(element => element.product == product);
+    let item = this.items.find(item => item.product == product);
     item!.quantity = quantity;
     this.updateQuantity(item!, quantity);
 
     if (quantity == 0) {
-      this.products = this.products.filter(element => element.product != product);
+      this.items = this.items.filter(item => item.product != product);
     }
 
     let cartCount = 0;
-    this.products.forEach((product) => {
+    this.items.forEach((item) => {
       cartCount += product.quantity;
     });
 
     this.productService.setCart({
       cartCount: cartCount,
-      products: this.products,
+      products: this.items,
       totalPrice: this.totalPrice
     });
   }
